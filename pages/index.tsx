@@ -177,7 +177,17 @@ export default function Home() {
 
         {/* ── Footer ─────────────────────────────── */}
         <footer className="footer">
-          <p>Designed &amp; built by Kylla Gelaga · {new Date().getFullYear()}</p>
+          <p>Customized by Kylla Mariz Gelaga · {new Date().getFullYear()}</p>
+          <p className="footer__tribute">
+            Design inspired by{' '}
+            <a
+              href="https://github.com/bchiang7"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Brittany Chiang
+            </a>
+          </p>
         </footer>
       </div>
 
