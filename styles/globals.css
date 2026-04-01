@@ -1,0 +1,296 @@
+/* ─── Design tokens ─────────────────────────────────────── */
+:root {
+  --bg: #0a192f;
+  --bg-surface: #112240;
+  --bg-surface2: #1d3461;
+  --text: #ccd6f6;
+  --text-secondary: #8892b0;
+  --accent: #64ffda;
+  --accent-tint: rgba(100, 255, 218, 0.1);
+  --border: rgba(100, 255, 218, 0.15);
+  --navbar-bg: rgba(10, 25, 47, 0.85);
+  --font-mono: 'SF Mono', 'Fira Code', 'Inconsolata', monospace;
+  --font-sans: 'Calibre', 'Inter', 'San Francisco', 'SF Pro Text', -apple-system, system-ui, sans-serif;
+  --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+html.light,
+.light {
+  --bg: #f0f4f8;
+  --bg-surface: #ffffff;
+  --bg-surface2: #e2e8f0;
+  --text: #1a2744;
+  --text-secondary: #4a5568;
+  --accent: #0d7377;
+  --accent-tint: rgba(13, 115, 119, 0.08);
+  --border: rgba(13, 115, 119, 0.2);
+  --navbar-bg: rgba(240, 244, 248, 0.85);
+}
+
+/* ─── Reset & Base ──────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; transition: var(--transition); }
+a:hover { opacity: 0.8; }
+
+/* ─── Layout ────────────────────────────────────────────── */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ─── Navbar ────────────────────────────────────────────── */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1.25rem 2rem;
+  background: var(--navbar-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s ease;
+}
+
+/* ─── Navbar Links ──────────────────────────────────────── */
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-right: 2rem;
+}
+
+.navbar__link {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  transition: var(--transition);
+}
+
+.navbar__link:hover {
+  color: var(--accent);
+  opacity: 1;
+}
+
+/* ─── Dark/Light Toggle ─────────────────────────────────── */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 0.4rem 0.9rem;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  transition: var(--transition);
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.theme-toggle svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
+}
+
+/* ─── Hero Section ──────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6rem 0 4rem;
+}
+
+.hero__inner {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.hero__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.hero__photo-wrap {
+  flex-shrink: 0;
+  position: relative;
+}
+
+.hero__photo {
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 3px solid var(--accent);
+  box-shadow: 0 0 0 6px var(--accent-tint);
+}
+
+.hero__overline {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--accent);
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.05em;
+}
+
+.hero__name {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.hero__tagline {
+  font-size: clamp(1.5rem, 5vw, 3.25rem);
+  font-weight: 700;
+  color: var(--text-secondary);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.hero__description {
+  max-width: 540px;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+  line-height: 1.75;
+}
+
+.hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  padding: 0.9rem 1.75rem;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  transition: var(--transition);
+}
+
+.hero__cta:hover {
+  background: var(--accent-tint);
+  opacity: 1;
+}
+
+/* ─── Section ───────────────────────────────────────────── */
+.section {
+  padding: 5rem 0;
+}
+
+.section__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.section__title {
+  font-size: clamp(1.5rem, 4vw, 1.85rem);
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.section__line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.section__number {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--accent);
+  margin-right: 0.25rem;
+}
+
+/* ─── Chat Section ──────────────────────────────────────── */
+.chat-section {
+  padding: 5rem 0 8rem;
+}
+
+/* ─── Footer ────────────────────────────────────────────── */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border);
+}
+
+/* ─── Left Social Bar ───────────────────────────────────── */
+.social-bar {
+  position: fixed;
+  bottom: 0;
+  left: 2.5rem;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.social-bar a {
+  color: var(--text-secondary);
+  transition: var(--transition);
+}
+
+.social-bar a:hover {
+  color: var(--accent);
+  transform: translateY(-3px);
+  opacity: 1;
+}
+
+.social-bar svg {
+  width: 20px;
+  height: 20px;
+}
+
+.social-bar__line {
+  width: 1px;
+  height: 90px;
+  background: var(--text-secondary);
+  margin-top: 0.5rem;
+}
+
+/* ─── Responsive ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .container { padding: 0 1.25rem; }
+  .hero { padding: 5rem 0 3rem; }
+  .hero__inner { flex-direction: column-reverse; gap: 2rem; }
+  .hero__photo { width: 200px !important; height: 200px !important; }
+  .section { padding: 3.5rem 0; }
+  .social-bar { display: none; }
+  .navbar__links { gap: 1rem; margin-right: 1rem; }
+}
