@@ -2,8 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import Groq from 'groq-sdk';
 import { RESUME_CONTENT } from '@/lib/resume';
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-
 const SYSTEM_PROMPT = `You are a helpful assistant representing Kylla as a portfolio assistant.
 Answer questions about their background, skills, and experience based on this resume:
 
@@ -23,6 +21,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (!Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: 'messages array is required' });
   }
+
+  const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
   try {
     const completion = await groq.chat.completions.create({
