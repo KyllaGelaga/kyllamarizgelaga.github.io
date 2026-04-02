@@ -38,7 +38,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const message = completion.choices[0]?.message?.content ?? 'No response received.';
     return res.status(200).json({ message });
   } catch (err) {
-    console.error('Groq API error:', err);
-    return res.status(500).json({ error: 'Failed to get response from AI.' });
+    const message = err instanceof Error ? err.message : String(err);
+    console.error('Groq API error:', message);
+    return res.status(500).json({ error: message });
   }
 }
