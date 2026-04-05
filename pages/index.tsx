@@ -48,7 +48,8 @@ export default function Home() {
         <nav className="navbar">
           <div className="navbar__links">
             <a href="#hero" className="navbar__link">Profile</a>
-            <a href="#chat" className="navbar__link">Ask me anything</a>
+            <a href="#tools" className="navbar__link">Tools</a>
+            <a href="#projects" className="navbar__link">Projects</a>
           </div>
           <button
             className="theme-toggle"
@@ -154,25 +155,124 @@ export default function Home() {
             </div>
           </section>
 
-          {/* ── Ask me anything ────────────────────── */}
-          <section className="chat-section" id="chat">
+          {/* ── Tools ─────────────────────────────── */}
+          <section className="section" id="tools">
             <div className="container">
               <div className="section__header">
                 <h2 className="section__title">
                   <span className="section__number">02.</span>
-                  Ask me anything
+                  Tools
                 </h2>
                 <div className="section__line" />
               </div>
 
-              <p className="chat-intro">
-                Curious about my background? Chat with my AI — it knows my
-                resume inside and out.
+              <p className="section__intro">
+                A snapshot of the tools and technologies I work with to analyze data, build workflows, and ship AI-powered solutions.
               </p>
 
-              <ChatWidget />
+              <div className="tools-grid">
+                {[
+                  { cat: 'Data & Analytics', items: ['Python', 'SQL', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn'] },
+                  { cat: 'BI & Reporting', items: ['Power BI', 'Tableau', 'Google Looker Studio', 'Excel / Google Sheets'] },
+                  { cat: 'Automation & AI', items: ['n8n', 'Make (Integromat)', 'OpenAI API', 'LangChain', 'Zapier'] },
+                  { cat: 'Infrastructure', items: ['PostgreSQL', 'MySQL', 'Git & GitHub', 'Docker (basics)', 'Vercel'] },
+                ].map(({ cat, items }) => (
+                  <div key={cat} className="tools-card">
+                    <h3 className="tools-card__cat">{cat}</h3>
+                    <ul className="tools-card__list">
+                      {items.map(item => (
+                        <li key={item} className="tools-card__item">
+                          <span className="tools-card__bullet">▹</span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
+
+          {/* ── Projects ───────────────────────────── */}
+          <section className="section" id="projects">
+            <div className="container">
+              <div className="section__header">
+                <h2 className="section__title">
+                  <span className="section__number">03.</span>
+                  Projects
+                </h2>
+                <div className="section__line" />
+              </div>
+
+              <div className="projects-grid">
+                {[
+                  {
+                    title: 'Insurance Fraud Detection',
+                    desc: 'Built a Python-based anomaly detection pipeline that surfaced ₱54M in fraudulent insurance claims. Combined statistical profiling with rule-based flagging across 200k+ records.',
+                    tags: ['Python', 'Pandas', 'SQL', 'Anomaly Detection'],
+                    links: { youtube: '#', presentation: '#', overview: '#' },
+                  },
+                  {
+                    title: 'Real Estate Automation Pipeline',
+                    desc: 'Designed an end-to-end n8n workflow for a U.S. real estate client — automating lead capture, CRM updates, follow-up emails, and weekly reporting with zero manual input.',
+                    tags: ['n8n', 'Make', 'CRM', 'Automation'],
+                    links: { youtube: '#', presentation: '#', overview: '#' },
+                  },
+                  {
+                    title: 'AI Portfolio Chatbot',
+                    desc: 'This very site! Built with Next.js 14 and Groq (LLaMA 3), the chatbot answers questions about my background, projects, and skills using a system prompt grounded in my resume.',
+                    tags: ['Next.js', 'Groq', 'LLaMA 3', 'TypeScript'],
+                    links: { youtube: '#', presentation: '#', overview: '#' },
+                  },
+                  {
+                    title: 'BI Dashboard Suite',
+                    desc: 'Created a suite of Power BI dashboards for operations teams — covering KPI tracking, headcount trends, and SLA compliance, replacing 12 manual weekly reports.',
+                    tags: ['Power BI', 'DAX', 'SQL', 'Excel'],
+                    links: { youtube: '#', presentation: '#', overview: '#' },
+                  },
+                ].map(({ title, desc, tags, links }) => (
+                  <div key={title} className="project-card">
+                    <div className="project-card__top">
+                      <svg className="project-card__folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                      </svg>
+                    </div>
+                    <h3 className="project-card__title">{title}</h3>
+                    <p className="project-card__desc">{desc}</p>
+                    <ul className="project-card__tags">
+                      {tags.map(t => <li key={t}>{t}</li>)}
+                    </ul>
+
+                    {/* Hover overlay */}
+                    <div className="project-card__overlay">
+                      <a href={links.youtube} target="_blank" rel="noopener noreferrer" className="project-card__action">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.75 15.5v-7l6.5 3.5-6.5 3.5z"/>
+                        </svg>
+                        YouTube
+                      </a>
+                      <a href={links.presentation} target="_blank" rel="noopener noreferrer" className="project-card__action">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="2" y="3" width="20" height="14" rx="2"/>
+                          <path d="M8 21h8M12 17v4"/>
+                        </svg>
+                        Presentation
+                      </a>
+                      <a href={links.overview} target="_blank" rel="noopener noreferrer" className="project-card__action">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                        Overview
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* ── Floating Chat Widget ───────────────── */}
+          <ChatWidget />
         </main>
 
         {/* ── Footer ─────────────────────────────── */}
@@ -191,15 +291,6 @@ export default function Home() {
         </footer>
       </div>
 
-      <style jsx>{`
-        .chat-intro {
-          font-size: 1rem;
-          color: var(--text-secondary);
-          margin-bottom: 2rem;
-          max-width: 540px;
-          line-height: 1.7;
-        }
-      `}</style>
     </>
   );
 }
