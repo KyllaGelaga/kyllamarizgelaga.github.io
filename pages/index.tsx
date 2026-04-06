@@ -127,8 +127,8 @@ export default function Home() {
                 <p className="hero__description">
                   I&apos;m a Data Analyst and Automation Specialist who turns
                   messy data into clear decisions. With Python, SQL, and BI
-                  tools, I build intelligent workflows and AI-powered automation
-                  that actually get used — from detecting ₱54M in insurance
+                  tools, I build intelligent workflows and AI powered automation
+                  that actually get used. From detecting ₱54M in insurance
                   fraud to streamlining real estate pipelines for U.S. clients.
                 </p>
 
@@ -167,7 +167,7 @@ export default function Home() {
               </div>
 
               <p className="section__intro">
-                A snapshot of the tools and technologies I work with to analyze data, build workflows, and ship AI-powered solutions.
+                A snapshot of the tools and technologies I work with to analyze data, build workflows, and ship AI powered solutions.
               </p>
 
               <div className="tools-grid">
@@ -207,8 +207,8 @@ export default function Home() {
               <div className="projects-grid">
                 {[
                   {
-                    title: 'Automated Invoice Follow-Up System',
-                    desc: 'Built an n8n workflow that monitors overdue invoices via Google Sheets and sends escalating reminder emails (friendly → firm → urgent) based on days overdue — with auto-status updates and freelancer alerts at 30+ days.',
+                    title: 'Automated Invoice Follow Up System',
+                    desc: 'Built an n8n workflow that monitors overdue invoices via Google Sheets and sends escalating reminder emails (friendly → firm → urgent) based on days overdue. Includes auto status updates and freelancer alerts at 30 or more days.',
                     tags: ['n8n', 'Google Sheets', 'Gmail', 'Automation'],
                     links: { youtube: '#', presentation: '#', overview: '#' },
                   },
@@ -220,19 +220,19 @@ export default function Home() {
                   },
                   {
                     title: 'Exploratory Data Analysis on Titanic Dataset',
-                    desc: 'Performed end-to-end EDA on the Titanic dataset — uncovering survival patterns by passenger class, gender, and age through statistical analysis and data visualizations.',
+                    desc: 'Performed end to end EDA on the Titanic dataset, uncovering survival patterns by passenger class, gender, and age through statistical analysis and data visualizations.',
                     tags: ['Python', 'Pandas', 'Matplotlib', 'Seaborn'],
                     links: { youtube: '#', presentation: '#', overview: '#' },
                   },
                   {
                     title: 'Insurance Fraud Detection',
-                    desc: 'Built a Python-based anomaly detection pipeline that surfaced ₱54M in fraudulent insurance claims. Combined statistical profiling with rule-based flagging across 200k+ records.',
+                    desc: 'Built a Python based anomaly detection pipeline that surfaced ₱54M in fraudulent insurance claims. Combined statistical profiling with rule based flagging across 200k+ records.',
                     tags: ['Python', 'Pandas', 'SQL', 'Anomaly Detection'],
                     links: { youtube: '#', presentation: '#', overview: '#' },
                   },
                   {
                     title: 'BI Dashboard Suite',
-                    desc: 'Created a suite of Power BI dashboards for operations teams — covering KPI tracking, headcount trends, and SLA compliance, replacing 12 manual weekly reports.',
+                    desc: 'Created a suite of Power BI dashboards for operations teams, covering KPI tracking, headcount trends, and SLA compliance, replacing 12 manual weekly reports.',
                     tags: ['Power BI', 'DAX', 'SQL', 'Excel'],
                     links: { youtube: '#', presentation: '#', overview: '#' },
                   },
