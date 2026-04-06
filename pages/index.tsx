@@ -207,21 +207,27 @@ export default function Home() {
               <div className="projects-grid">
                 {[
                   {
-                    title: 'Insurance Fraud Detection',
-                    desc: 'Built a Python-based anomaly detection pipeline that surfaced ₱54M in fraudulent insurance claims. Combined statistical profiling with rule-based flagging across 200k+ records.',
-                    tags: ['Python', 'Pandas', 'SQL', 'Anomaly Detection'],
-                    links: { youtube: '#', presentation: '#', overview: '#' },
-                  },
-                  {
-                    title: 'Real Estate Automation Pipeline',
-                    desc: 'Designed an end-to-end n8n workflow for a U.S. real estate client — automating lead capture, CRM updates, follow-up emails, and weekly reporting with zero manual input.',
-                    tags: ['n8n', 'Make', 'CRM', 'Automation'],
+                    title: 'Automated Invoice Follow-Up System',
+                    desc: 'Built an n8n workflow that monitors overdue invoices via Google Sheets and sends escalating reminder emails (friendly → firm → urgent) based on days overdue — with auto-status updates and freelancer alerts at 30+ days.',
+                    tags: ['n8n', 'Google Sheets', 'Gmail', 'Automation'],
                     links: { youtube: '#', presentation: '#', overview: '#' },
                   },
                   {
                     title: 'AI Portfolio Chatbot',
                     desc: 'This very site! Built with Next.js 14 and Groq (LLaMA 3), the chatbot answers questions about my background, projects, and skills using a system prompt grounded in my resume.',
                     tags: ['Next.js', 'Groq', 'LLaMA 3', 'TypeScript'],
+                    links: { youtube: '#', presentation: '#', overview: '#' },
+                  },
+                  {
+                    title: 'Exploratory Data Analysis on Titanic Dataset',
+                    desc: 'Performed end-to-end EDA on the Titanic dataset — uncovering survival patterns by passenger class, gender, and age through statistical analysis and data visualizations.',
+                    tags: ['Python', 'Pandas', 'Matplotlib', 'Seaborn'],
+                    links: { youtube: '#', presentation: '#', overview: '#' },
+                  },
+                  {
+                    title: 'Insurance Fraud Detection',
+                    desc: 'Built a Python-based anomaly detection pipeline that surfaced ₱54M in fraudulent insurance claims. Combined statistical profiling with rule-based flagging across 200k+ records.',
+                    tags: ['Python', 'Pandas', 'SQL', 'Anomaly Detection'],
                     links: { youtube: '#', presentation: '#', overview: '#' },
                   },
                   {
