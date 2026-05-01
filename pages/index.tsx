@@ -222,7 +222,7 @@ export default function Home() {
                     title: 'Exploratory Data Analysis on Titanic Dataset',
                     desc: 'Performed end to end EDA on the Titanic dataset, uncovering survival patterns by passenger class, gender, and age through statistical analysis and data visualizations.',
                     tags: ['Python', 'Pandas', 'Matplotlib', 'Seaborn'],
-                    links: { youtube: '#', presentation: '#', overview: '#' },
+                    links: { youtube: '#', presentation: '/titanic_dashboard.html', overview: '#' },
                   },
                   {
                     title: 'Insurance Fraud Detection',

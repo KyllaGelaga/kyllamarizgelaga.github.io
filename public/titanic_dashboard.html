@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Titanic — A Voyage in Numbers</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  background: radial-gradient(ellipse at top, #1a3a5c 0%, #0a1929 55%, #050d18 100%);
+  color: #f4ecd8;
+  overflow: hidden;
+}
+
+.shell {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 20px 28px 16px;
+}
+
+/* ── Header ── */
+.header {
+  text-align: center;
+  padding-bottom: 12px;
+  border-bottom: 2px double #c9a961;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+  position: relative;
+}
+.header::before, .header::after {
+  content: "✦"; color: #c9a961; font-size: 14px;
+  position: absolute; bottom: -9px;
+  background: #0a1929; padding: 0 10px;
+}
+.header::before { left: 44%; }
+.header::after  { right: 44%; }
+
+.kicker  { font-size: 10px; letter-spacing: 6px; color: #c9a961; text-transform: uppercase; margin-bottom: 4px; }
+.title   { font-size: 26px; font-weight: 400; letter-spacing: 3px; color: #f4ecd8; text-transform: uppercase; text-shadow: 0 2px 6px rgba(0,0,0,0.6); }
+.subtitle{ font-style: italic; font-size: 12px; color: #b9c8d6; margin-top: 3px; }
+
+/* ── Dots ── */
+.dots {
+  display: flex; justify-content: center; align-items: center;
+  gap: 8px; margin-bottom: 14px; flex-shrink: 0;
+}
+.dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  border: 1px solid #c9a961; background: transparent;
+  cursor: pointer; transition: background .2s;
+}
+.dot.active { background: #c9a961; }
+.dot-label { font-size: 10px; letter-spacing: 3px; color: #8a9bab; text-transform: uppercase; margin-left: 6px; }
+
+/* ── Slides ── */
+.slides-outer { flex: 1; overflow: hidden; min-height: 0; }
+.slides-track {
+  display: flex; height: 100%;
+  transition: transform .42s cubic-bezier(.4,0,.2,1);
+}
+.slide {
+  min-width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center;          /* center content horizontally */
+  justify-content: center;      /* center content vertically  */
+  gap: 12px;
+}
+
+/* ── Section headings ── */
+.ch-label {
+  font-size: 10px; letter-spacing: 5px; color: #c9a961;
+  text-transform: uppercase; text-align: center;
+}
+.ch-heading {
+  font-size: 18px; color: #f4ecd8; text-align: center; font-weight: 400;
+}
+.ch-heading::after {
+  content: ""; display: block; width: 40px; height: 1px;
+  background: #c9a961; margin: 7px auto 0;
+}
+
+/* ── Stats ── */
+.stats {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 10px; width: 100%;
+}
+.stat {
+  background: linear-gradient(180deg,rgba(20,45,72,.85) 0%,rgba(10,25,41,.85) 100%);
+  border: 1px solid #c9a961; border-radius: 3px;
+  padding: 14px 10px; text-align: center; position: relative;
+}
+.stat::before {
+  content:""; position:absolute; top:5px; left:5px; right:5px; bottom:5px;
+  border:1px solid rgba(201,169,97,.3); pointer-events:none;
+}
+.stat-value { font-size: 26px; color: #c9a961; font-weight: 700; margin-bottom: 3px; }
+.stat-label { font-size: 9px; letter-spacing: 2px; color: #b9c8d6; text-transform: uppercase; }
+
+/* ── Chart card ── */
+.chart-card {
+  background: linear-gradient(180deg,#f4ecd8 0%,#ede1c3 100%);
+  border: 1px solid #c9a961; border-radius: 3px;
+  padding: 14px 18px 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.35);
+  position: relative;
+  width: 100%;
+}
+.chart-card::before {
+  content:""; position:absolute; top:6px; left:6px; right:6px; bottom:6px;
+  border:1px solid #8a6d3b; pointer-events:none;
+}
+.chart-title {
+  text-align:center; color:#1a3a5c; font-size:12px;
+  font-weight:700; letter-spacing:1px; margin-bottom:8px;
+}
+.chart-wrap { position:relative; height: 160px; }
+
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; width:100%; }
+.grid-2 .chart-wrap { height: 150px; }
+
+/* ── Insight ── */
+.insight {
+  padding: 10px 16px; width: 100%;
+  background: rgba(10,25,41,.6); border-left: 3px solid #c9a961;
+  font-style: italic; color: #d8e0e8; font-size: 12px; line-height: 1.6;
+}
+
+/* ── Nav ── */
+.nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 12px; flex-shrink: 0;
+}
+.nav-btn {
+  background: transparent; border: 1px solid #c9a961;
+  color: #c9a961; padding: 7px 22px;
+  font-family: 'Georgia', serif; font-size: 11px;
+  letter-spacing: 2px; text-transform: uppercase;
+  cursor: pointer; border-radius: 2px;
+  transition: background .2s, color .2s;
+}
+.nav-btn:hover:not(:disabled) { background: #c9a961; color: #0a1929; }
+.nav-btn:disabled { opacity: .22; cursor: default; }
+.nav-center { text-align: center; font-size: 10px; letter-spacing: 3px; color: #8a9bab; text-transform: uppercase; }
+.nav-num { font-size: 18px; color: #c9a961; display: block; font-weight: 700; line-height: 1.2; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.0/dist/chart.umd.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="shell">
+
+  <header class="header">
+    <div class="kicker">R.M.S. Titanic — April 15, 1912</div>
+    <div class="title">A Voyage in Numbers</div>
+    <div class="subtitle">An analysis of survival aboard the unsinkable ship</div>
+  </header>
+
+  <div class="dots">
+    <div class="dot active" onclick="goTo(0)"></div>
+    <div class="dot" onclick="goTo(1)"></div>
+    <div class="dot" onclick="goTo(2)"></div>
+    <div class="dot" onclick="goTo(3)"></div>
+    <div class="dot" onclick="goTo(4)"></div>
+    <span class="dot-label" id="dotLabel">Overview</span>
+  </div>
+
+  <div class="slides-outer">
+    <div class="slides-track" id="track">
+
+      <!-- 0: Overview -->
+      <div class="slide">
+        <div class="ch-label">Overview</div>
+        <div class="ch-heading">The Numbers at a Glance</div>
+        <div class="stats">
+          <div class="stat"><div class="stat-value">769</div><div class="stat-label">Passengers</div></div>
+          <div class="stat"><div class="stat-value">152</div><div class="stat-label">Survivors</div></div>
+          <div class="stat"><div class="stat-value">19.8%</div><div class="stat-label">Survival Rate</div></div>
+          <div class="stat"><div class="stat-value">3</div><div class="stat-label">Classes</div></div>
+        </div>
+        <div class="insight">On April 15, 1912, the RMS Titanic sank in the North Atlantic after striking an iceberg. Of the 769 passengers in this dataset, only 152 survived — a grim 19.8% survival rate. The following chapters explore how class, age, port of embarkation, and fare shaped one's fate that night.</div>
+      </div>
+
+      <!-- 1: Survival by Class -->
+      <div class="slide">
+        <div class="ch-label">Chapter I</div>
+        <div class="ch-heading">Survival by Passenger Class</div>
+        <div class="chart-card">
+          <div class="chart-title">Who Made It to the Lifeboats?</div>
+          <div class="chart-wrap"><canvas id="chart1"></canvas></div>
+        </div>
+        <div class="insight">First-class passengers had the highest survival rate at 25.1%, while third-class passengers — though most numerous — had the lowest at 17.6%. The data echoes the era's social order, even at sea.</div>
+      </div>
+
+      <!-- 2: Age Profiles -->
+      <div class="slide">
+        <div class="ch-label">Chapter II</div>
+        <div class="ch-heading">Age Profile by Class</div>
+        <div class="grid-2">
+          <div class="chart-card">
+            <div class="chart-title">Survivors</div>
+            <div class="chart-wrap"><canvas id="chart2"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">Non-Survivors</div>
+            <div class="chart-wrap"><canvas id="chart3"></canvas></div>
+          </div>
+        </div>
+        <div class="insight">Surviving first-class passengers averaged 41 years. The youngest survivor was just 0.17 years (two months) old in third class, while the oldest reached 76 in first class.</div>
+      </div>
+
+      <!-- 3: Embarkation -->
+      <div class="slide">
+        <div class="ch-label">Chapter III</div>
+        <div class="ch-heading">Survival Rate by Embarkation Port</div>
+        <div class="chart-card">
+          <div class="chart-title">Three Ports, Three Fates</div>
+          <div class="chart-wrap"><canvas id="chart4"></canvas></div>
+        </div>
+        <div class="insight">Queenstown passengers had the highest survival rate at 50%, while those boarding at Southampton — the largest group at 529 souls — had the lowest at 42%.</div>
+      </div>
+
+      <!-- 4: Fare -->
+      <div class="slide">
+        <div class="ch-label">Chapter IV</div>
+        <div class="ch-heading">Average Fare by Class &amp; Outcome</div>
+        <div class="chart-card">
+          <div class="chart-title">The Price of Passage</div>
+          <div class="chart-wrap"><canvas id="chart5"></canvas></div>
+        </div>
+        <div class="insight">Across every class, survivors paid more on average. First-class survivors paid £115.59 — over £40 more than first-class non-survivors. Wealth, it seems, bought a closer berth to the lifeboats.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="nav-btn" id="btnBack" onclick="changePage(-1)" disabled>← Back</button>
+    <div class="nav-center">
+      <span class="nav-num" id="pageNum">1</span>of 5
+    </div>
+    <button class="nav-btn" id="btnNext" onclick="changePage(1)">Next →</button>
+  </div>
+
+</div>
+
+<script>
+const GOLD='#c9a961',NAVY='#1a3a5c',TEAL='#2c7873',RUST='#a0392c',INK='#3a3a3a';
+Chart.defaults.font.family="'Georgia','Times New Roman',serif";
+Chart.defaults.font.size=10;
+Chart.defaults.color=INK;
+
+const LABELS=['Overview','Chapter I','Chapter II','Chapter III','Chapter IV'];
+let cur=0;
+const built=new Set();
+
+function buildChart(idx){
+  if(built.has(idx))return;
+  built.add(idx);
+  const leg={position:'bottom',labels:{boxWidth:10,font:{size:10},padding:8}};
+
+  if(idx===1){
+    new Chart(document.getElementById('chart1'),{type:'bar',data:{
+      labels:['1st Class','2nd Class','3rd Class'],
+      datasets:[
+        {label:'Total Passengers',data:[199,160,410],backgroundColor:NAVY,yAxisID:'y'},
+        {label:'Survivors',data:[50,30,72],backgroundColor:GOLD,yAxisID:'y'},
+        {label:'Survival %',data:[25.13,18.75,17.56],type:'line',
+          borderColor:RUST,backgroundColor:RUST,pointRadius:4,borderWidth:2,tension:.3,yAxisID:'y1'}
+      ]
+    },options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:leg},
+      scales:{
+        y:{beginAtZero:true,title:{display:true,text:'Count',font:{size:10}}},
+        y1:{beginAtZero:true,position:'right',max:30,
+          title:{display:true,text:'%',font:{size:10}},
+          grid:{display:false},ticks:{callback:v=>v+'%'}}
+      }}});
+  }
+  if(idx===2){
+    ['chart2','chart3'].forEach((id,i)=>{
+      new Chart(document.getElementById(id),{type:'bar',data:{
+        labels:['1st','2nd','3rd'],
+        datasets:[
+          {label:'Min',data:i===0?[18,.92,.17]:[6,2,.33],backgroundColor:TEAL},
+          {label:'Avg',data:i===0?[41,24,23]:[41,31,25],backgroundColor:GOLD},
+          {label:'Max',data:i===0?[76,60,47]:[67,63,61],backgroundColor:i===0?NAVY:RUST}
+        ]
+      },options:{responsive:true,maintainAspectRatio:false,
+        plugins:{legend:leg},
+        scales:{y:{beginAtZero:true,title:{display:true,text:'Age',font:{size:10}}}}}});
+    });
+  }
+  if(idx===3){
+    new Chart(document.getElementById('chart4'),{type:'bar',data:{
+      labels:['Queenstown','Southampton','Cherbourg'],
+      datasets:[
+        {label:'Did Not Survive',data:[50,58,57],backgroundColor:RUST,stack:'s'},
+        {label:'Survived',data:[50,42,43],backgroundColor:GOLD,stack:'s'}
+      ]
+    },options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:leg,tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'%'}}},
+      scales:{
+        x:{stacked:true,max:100,ticks:{callback:v=>v+'%'}},
+        y:{stacked:true}
+      }}});
+  }
+  if(idx===4){
+    new Chart(document.getElementById('chart5'),{type:'bar',data:{
+      labels:['1st Class','2nd Class','3rd Class'],
+      datasets:[
+        {label:'Non-Survivors',data:[75.59,20.18,11.83],backgroundColor:RUST},
+        {label:'Survivors',data:[115.59,26.44,13.74],backgroundColor:GOLD}
+      ]
+    },options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:leg,tooltip:{callbacks:{label:c=>c.dataset.label+': £'+c.raw.toFixed(2)}}},
+      scales:{y:{beginAtZero:true,title:{display:true,text:'Avg fare (£)',font:{size:10}},
+        ticks:{callback:v=>'£'+v}}}}});
+  }
+}
+
+function goTo(idx){
+  cur=idx;
+  document.getElementById('track').style.transform=`translateX(-${idx*100}%)`;
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+  document.getElementById('dotLabel').textContent=LABELS[idx];
+  document.getElementById('pageNum').textContent=idx+1;
+  document.getElementById('btnBack').disabled=idx===0;
+  document.getElementById('btnNext').disabled=idx===4;
+  setTimeout(()=>buildChart(idx),60);
+}
+function changePage(d){const n=cur+d;if(n>=0&&n<5)goTo(n);}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight')changePage(1);
+  if(e.key==='ArrowLeft')changePage(-1);
+});
+goTo(0);
+</script>
+</body>
+</html>
