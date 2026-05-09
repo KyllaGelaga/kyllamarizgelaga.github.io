@@ -224,8 +224,8 @@ export default function Home() {
                     tags: ['Python', 'Pandas', 'Matplotlib', 'Seaborn'],
                     links: {
                       youtube: '#',
-                      presentation: '/projects/Titanic%20%E2%80%94%20A%20Voyage%20in%20Numbers.html',
-                      overview: '/projects/titanic_overview_treasuremap.html',
+                      presentation: '/projects/titanic-dashboard.html',
+                      overview: '/projects/titanic-dashboard.html',
                     },
                   },
                   {
