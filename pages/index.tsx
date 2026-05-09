@@ -246,7 +246,7 @@ export default function Home() {
                     tags: ['Playwright', 'Python', 'Pandas', 'Excel', 'ETL Pipeline'],
                     links: {
                       youtube: '#',
-                      presentation: '/projects/Shopee_CampingShoes_Dashboard.xlsx',
+                      presentation: '/projects/shopee-market-data-pipeline.html',
                       overview: '/projects/shopee-market-data-pipeline.html',
                     },
                   },
