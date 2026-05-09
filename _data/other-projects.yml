@@ -1,3 +1,13 @@
+- name: Exploratory Data Analysis on Titanic Dataset
+  url: /projects/titanic-dashboard.html
+  description: An interactive data story exploring survival patterns aboard the RMS Titanic. Analysed 769 passengers across class, age, embarkation port, and fare to uncover the social dynamics behind the 19.8% survival rate. Built as a slide-based presentation with Chart.js visualisations.
+  used:
+    - thing: Python
+    - thing: Pandas
+    - thing: Chart.js
+    - thing: HTML
+    - thing: CSS
+
 - name: Surf Videos
   url: https://github.com/bchiang7/Surf-Videos
   code: https://github.com/bchiang7/Surf-Videos
