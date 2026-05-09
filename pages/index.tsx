@@ -229,6 +229,16 @@ export default function Home() {
                     },
                   },
                   {
+                    title: 'Shopee Market Data Pipeline: Playwright Scraping with Excel Analytics',
+                    desc: 'End-to-end automated pipeline that scrapes Shopee product listings with Playwright, cleans and transforms data via Python/Pandas, and delivers an interactive Excel dashboard with pivot charts and slicers for camping shoes market analysis.',
+                    tags: ['Playwright', 'Python', 'Pandas', 'Excel', 'ETL Pipeline'],
+                    links: {
+                      youtube: '#',
+                      presentation: '/projects/Shopee_CampingShoes_Dashboard.xlsx',
+                      overview: '/projects/overview.html',
+                    },
+                  },
+                  {
                     title: 'Insurance Fraud Detection',
                     desc: 'Built a Python based anomaly detection pipeline that surfaced ₱54M in fraudulent insurance claims. Combined statistical profiling with rule based flagging across 200k+ records.',
                     tags: ['Python', 'Pandas', 'SQL', 'Anomaly Detection'],
@@ -239,16 +249,6 @@ export default function Home() {
                     desc: 'Created a suite of Power BI dashboards for operations teams, covering KPI tracking, headcount trends, and SLA compliance, replacing 12 manual weekly reports.',
                     tags: ['Power BI', 'DAX', 'SQL', 'Excel'],
                     links: { youtube: '#', presentation: '#', overview: '#' },
-                  },
-                  {
-                    title: 'Shopee Market Data Pipeline: Playwright Scraping with Excel Analytics',
-                    desc: 'End-to-end automated pipeline that scrapes Shopee product listings with Playwright, cleans and transforms data via Python/Pandas, and delivers an interactive Excel dashboard with pivot charts and slicers for camping shoes market analysis.',
-                    tags: ['Playwright', 'Python', 'Pandas', 'Excel', 'ETL Pipeline'],
-                    links: {
-                      youtube: '#',
-                      presentation: '/projects/shopee-market-data-pipeline.html',
-                      overview: '/projects/shopee-market-data-pipeline.html',
-                    },
                   },
                 ].map(({ title, desc, tags, links }) => (
                   <div key={title} className="project-card">

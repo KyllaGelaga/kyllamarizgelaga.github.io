@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Shopee Camping Shoes: Market Scan</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --orange: #EE4D2D;
+    --orange-dark: #C03A1E;
+    --orange-pale: #FCEFE8;
+    --orange-cream: #FFF7F2;
+    --navy: #113366;
+    --red: #D0011B;
+    --ink: #1A1A1A;
+    --muted: #6B7280;
+    --line: #F0E0D5;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--ink);
+    background: #fff;
+    line-height: 1.55;
+  }
+  .page { max-width: 980px; margin: 0 auto; padding: 0 24px 80px; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+    color: #fff;
+    padding: 56px 0 48px;
+    margin-bottom: 32px;
+  }
+  .hero-inner { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+  .hero .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 12px;
+  }
+  .hero h1 {
+    font-size: 48px;
+    font-weight: 800;
+    margin: 0 0 12px;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+  }
+  .hero p { font-size: 18px; max-width: 720px; margin: 0; opacity: 0.95; }
+
+  h2 {
+    font-size: 26px;
+    color: var(--navy);
+    margin: 48px 0 16px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  h3 { font-size: 17px; margin: 0 0 6px; color: var(--navy); font-weight: 700; }
+  p { margin: 0 0 14px; font-size: 16px; }
+  .lead { font-size: 17px; color: var(--ink); }
+  .muted { color: var(--muted); font-size: 14px; }
+
+  /* Two-up grid */
+  .two-up {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 720px) {
+    .two-up { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 36px; }
+  }
+
+  /* Stats */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 24px 0 8px;
+  }
+  @media (max-width: 720px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stat {
+    background: var(--orange-cream);
+    border-left: 4px solid var(--orange);
+    padding: 16px 18px;
+    border-radius: 4px;
+  }
+  .stat .num {
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--orange);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .stat .label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-top: 4px;
+    font-weight: 600;
+  }
+
+  /* Insight cards */
+  .insight {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+    background: #fff;
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 18px;
+    align-items: start;
+  }
+  .insight .badge {
+    width: 44px; height: 44px;
+    background: var(--orange);
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 1;
+  }
+  .insight.warn .badge { background: var(--red); }
+  .insight.alt  .badge { background: var(--navy); }
+  .insight p { margin: 0; font-size: 15px; }
+
+  /* Sheet table */
+  table.sheets {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0 12px;
+    font-size: 15px;
+  }
+  table.sheets th, table.sheets td {
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  table.sheets th {
+    background: var(--orange);
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  table.sheets td.name {
+    color: var(--orange);
+    font-weight: 700;
+    width: 130px;
+    white-space: nowrap;
+  }
+
+  .callout {
+    background: var(--orange-cream);
+    border-left: 4px solid var(--orange);
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 12px 0 0;
+    font-size: 15px;
+  }
+
+  footer {
+    margin-top: 56px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 13px;
+  }
+  a { color: var(--orange); }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Market Scan / May 2026</div>
+    <h1>Shopee Camping Shoes: A 60-Listing Buyer's Audit</h1>
+    <p>What we learned about prices, brands, ratings, and shipping when we pulled every camping shoe Shopee Philippines surfaced for one search.</p>
+  </div>
+</header>
+
+<main class="page">
+
+  <section>
+    <h2>What is Shopee?</h2>
+    <p class="lead">Shopee is the largest e-commerce marketplace in Southeast Asia, owned by Singapore-based Sea Limited. In the Philippines it goes head-to-head with Lazada and TikTok Shop, hosting everything from electronics to outdoor gear.</p>
+    <p>Most listings are fulfilled either by Philippine-based sellers (next-day or two-day shipping out of Metro Manila and Bulacan) or by cross-border sellers in Mainland China (cheaper prices, four to eight day waits). Shopee layers on ratings, free-shipping vouchers, the ShopeePay digital wallet, and SPayLater, its buy-now-pay-later product that splits a purchase into 1, 3, 6, or 12 monthly installments.</p>
+  </section>
+
+  <section>
+    <h2>What this project does</h2>
+    <p class="lead">We scraped 60 Shopee PH listings for the query "camping shoes," cleaned the data, and built two deliverables on top of it.</p>
+    <div class="two-up">
+      <div>
+        <h3>1. A market-scan deck</h3>
+        <p>Ten slides covering the price landscape, brand competition, top picks by review-weighted score, where listings ship from, and the risks buyers should watch for.</p>
+      </div>
+      <div>
+        <h3>2. An interactive Excel dashboard</h3>
+        <p>Type your budget, pick your terrain and fitness level, and the workbook ranks the affordable matches and shows what each SPayLater installment plan would cost.</p>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat"><div class="num">60</div><div class="label">Listings</div></div>
+      <div class="stat"><div class="num">18</div><div class="label">Brands</div></div>
+      <div class="stat"><div class="num">36,225</div><div class="label">Reviews</div></div>
+      <div class="stat"><div class="num">4.78&#9733;</div><div class="label">Avg rating</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>What we uncovered</h2>
+
+    <div class="insight">
+      <div class="badge">1</div>
+      <div>
+        <h3>The mid-range is a dead zone, not a sweet spot</h3>
+        <p>The ₱500 to ₱1,000 tier has the lowest average rating in the dataset (4.57&#9733;) and almost no buyer attention: 107 reviews across 7 listings. Buyers either buy cheap (under ₱500) or jump to the ₱1,000 to ₱3,000 premium tier. The middle gets skipped.</p>
+      </div>
+    </div>
+
+    <div class="insight alt">
+      <div class="badge">2</div>
+      <div>
+        <h3>Camel and Camel Crown built a real premium</h3>
+        <p>Together they hold 20 of the 60 listings at an average price of ₱2,043, and customers reward it: 4.90&#9733; average rating across 13,000+ reviews. The premium positioning works on Shopee even when the next aisle is full of ₱200 alternatives.</p>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="badge">3</div>
+      <div>
+        <h3>"Unbranded" is a category, not a junk drawer</h3>
+        <p>Twenty-three listings are tagged Unbranded, totaling 12,186 reviews and ₱860 average price. Volume play that works: lowest rating in the dataset (4.71&#9733;) but enormous customer reach. Cheap unbranded is how most buyers actually start.</p>
+      </div>
+    </div>
+
+    <div class="insight warn">
+      <div class="badge">!</div>
+      <div>
+        <h3>Average ratings hide real complaints</h3>
+        <p>Five listings carry 5%+ of their reviews at 1 to 2 stars. The worst hits 25% negative on a 4.3&#9733;, ₱309 unbranded shoe. The 4.78&#9733; market average smooths over genuine quality risk that only shows up when you read the negative bucket.</p>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="badge">4</div>
+      <div>
+        <h3>Price barely predicts rating</h3>
+        <p>Correlation between price and rating is only +0.26. Paying more nudges quality up, but not reliably. Our highest-rated listing sits at ₱858; our most-reviewed listing sits at ₱199. Cheap and good are not mutually exclusive on this catalog.</p>
+      </div>
+    </div>
+
+    <div class="insight alt">
+      <div class="badge">5</div>
+      <div>
+        <h3>Half the catalog is a slow boat from China</h3>
+        <p>21 of 60 listings ship from Mainland China (4 to 8 days). The 38 listings promising "Tomorrow" or "Less than 2 days" are almost entirely PH-based sellers in Bulacan, Valenzuela, and Pasig. Buyers who need gear this week are choosing from a much smaller pool than the catalog suggests.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>So what should you actually buy?</h2>
+    <table class="sheets">
+      <thead><tr><th style="width:160px">Use case</th><th>Recommended pick</th><th style="width:160px">Price &amp; rating</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Best overall</td><td>Camel men's outdoor wear-resistant non-slip hiking shoes</td><td>₱1,872 / 4.9&#9733; / 5,529 reviews</td></tr>
+        <tr><td class="name">Best budget</td><td>Unbranded hiking shoes, men/women, rubber anti-slip waterproof</td><td>₱293 / 4.9&#9733; / 1,234 reviews</td></tr>
+        <tr><td class="name">Best for women</td><td>Camel women outdoor hiking shoes, wear-resistant non-slip</td><td>₱2,020 / 4.9&#9733; / 4,251 reviews</td></tr>
+        <tr><td class="name">Fastest local</td><td>ShoePer Sierra sports hiking trekking shoes for men</td><td>₱420 / 4.8&#9733; / 3,997 reviews</td></tr>
+      </tbody>
+    </table>
+    <div class="callout">
+      <strong>SPayLater note:</strong> Shopee's 0% interest 3-month installment is on for most months of the year. A 1.49% processing fee still applies, so a ₱1,872 shoe costs ₱1,900 spread over three months. Standard 6 and 12-month plans add 2.95% monthly interest on top.
+    </div>
+  </section>
+
+  <section>
+    <h2>How the analysis was built</h2>
+    <p>Sixty listings scraped from Shopee PH for the query "camping shoes." Prices cleaned from peso-prefixed strings into numeric values. Each shoe tagged for terrain suitability (light trails, mixed hiking, rocky, wet) and fitness fit (beginner, regular, advanced) using keyword matching on the product title. Rankings use a Bayesian-weighted score that pulls small-sample ratings toward the dataset mean, so a 5.0&#9733; shoe with 7 reviews does not outrank a 4.9&#9733; shoe with 5,529.</p>
+  </section>
+
+  <footer>
+    Built for Kylla. Shopee colors used for branding only. This project is not affiliated with Shopee. Data is a one-time snapshot; treat findings as directional, not definitive.
+  </footer>
+</main>
+</body>
+</html>
