@@ -224,8 +224,8 @@ export default function Home() {
                     tags: ['Python', 'Pandas', 'Matplotlib', 'Seaborn'],
                     links: {
                       youtube: '#',
-                      presentation: '/projects/titanic-dashboard.html',
-                      overview: '/projects/titanic-dashboard.html',
+                      presentation: '/projects/titanic-presentation.html',
+                      overview: '/projects/titanic_overview_treasuremap.html',
                     },
                   },
                   {
