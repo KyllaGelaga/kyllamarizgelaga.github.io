@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shopee Market Data Pipeline · Overview</title>
+<style>
+:root {
+  color-scheme: dark;
+  --orange:       #ee4d2d;
+  --orange-deep:  #c13a1f;
+  --orange-soft:  rgba(238,77,45,.22);
+  --orange-glow:  rgba(238,77,45,.08);
+  --dark:         #0f0f0f;
+  --surface:      #181818;
+  --surface-2:    #222222;
+  --border:       rgba(238,77,45,.25);
+  --cream:        #f5f0eb;
+  --muted:        #a8a0a0;
+  --soft:         #2a2a2a;
+  --ink:          #1a1a1a;
+  --green:        #2ecc71;
+  --teal:         #1abc9c;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: 'Segoe UI', 'Inter', -apple-system, sans-serif;
+  background: radial-gradient(ellipse at top left, #1f0a05 0%, #0f0f0f 50%, #050505 100%);
+  background-attachment: fixed;
+  color: var(--cream);
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+/* ── Page wrapper ── */
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 64px) clamp(16px, 4vw, 40px) clamp(40px, 6vw, 80px);
+}
+
+/* ── Header ── */
+.page-header {
+  text-align: center;
+  margin-bottom: clamp(32px, 5vw, 56px);
+  position: relative;
+}
+.page-kicker {
+  font-size: clamp(10px, 1.1vw, 12px);
+  letter-spacing: clamp(4px, .8vw, 8px);
+  color: var(--orange);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.page-title {
+  font-size: clamp(26px, 4.5vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #ff6b4a 0%, #ee4d2d 50%, #ff8c69 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.page-subtitle {
+  font-size: clamp(13px, 1.6vw, 16px);
+  color: var(--muted);
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.header-divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--orange), transparent);
+  margin: 20px auto 0;
+  border-radius: 2px;
+}
+
+/* ── Tag pills ── */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 24px 0 0;
+}
+.tag {
+  background: var(--orange-soft);
+  border: 1px solid var(--border);
+  color: #ff8c69;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* ── Section headings ── */
+.section-label {
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--orange);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+/* ── Pipeline diagram ── */
+.pipeline {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: clamp(24px, 4vw, 40px);
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.pipeline::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--orange-deep), var(--orange), #ff8c69);
+}
+.pipeline-title {
+  font-size: clamp(14px, 1.8vw, 18px);
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 28px;
+  text-align: center;
+}
+.pipeline-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+.p-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 120px;
+  max-width: 160px;
+  padding: 0 8px;
+}
+.p-step-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  background: var(--surface-2);
+  border: 2px solid var(--border);
+  position: relative;
+  transition: transform .2s;
+}
+.p-step-icon:hover { transform: translateY(-3px); }
+.p-step-icon.active {
+  background: var(--orange-soft);
+  border-color: var(--orange);
+  box-shadow: 0 0 18px var(--orange-soft);
+}
+.p-step-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cream);
+  text-align: center;
+  line-height: 1.3;
+}
+.p-step-sub {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.4;
+}
+.p-arrow {
+  color: var(--orange);
+  font-size: 20px;
+  flex-shrink: 0;
+  opacity: 0.6;
+  padding: 0 4px;
+  margin-bottom: 30px;
+}
+@media (max-width: 600px) {
+  .pipeline-steps { flex-direction: column; }
+  .p-arrow { transform: rotate(90deg); margin: 0; }
+  .p-step { max-width: 100%; flex-direction: row; justify-content: flex-start; gap: 16px; }
+  .p-step-icon { min-width: 48px; width: 48px; height: 48px; font-size: 20px; }
+}
+
+/* ── Stats row ── */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 16px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--orange), transparent);
+}
+.stat-value {
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 800;
+  color: var(--orange);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+}
+
+/* ── Two-column layout ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+@media (max-width: 680px) { .two-col { grid-template-columns: 1fr; } }
+
+/* ── Card ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: clamp(20px, 3vw, 28px);
+  position: relative;
+}
+.card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-title .icon { font-size: 16px; }
+
+/* ── Feature list ── */
+.feature-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--cream);
+  line-height: 1.5;
+}
+.feature-list li::before {
+  content: '▸';
+  color: var(--orange);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Insight items ── */
+.insight-item {
+  background: var(--surface-2);
+  border-left: 3px solid var(--orange);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.insight-item:last-child { margin-bottom: 0; }
+.insight-item strong { color: var(--orange); }
+
+/* ── Tech stack grid ── */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.tech-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 12px;
+  text-align: center;
+  transition: border-color .2s, transform .2s;
+}
+.tech-item:hover {
+  border-color: var(--orange);
+  transform: translateY(-2px);
+}
+.tech-icon { font-size: 22px; margin-bottom: 6px; }
+.tech-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cream);
+  display: block;
+  margin-bottom: 2px;
+}
+.tech-role {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+/* ── Full-width card ── */
+.card-wide {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: clamp(20px, 3vw, 28px);
+  margin-bottom: 32px;
+}
+
+/* ── CTA ── */
+.cta-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 40px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform .15s, box-shadow .15s;
+  letter-spacing: 0.3px;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,.4); }
+.btn-primary {
+  background: linear-gradient(135deg, var(--orange-deep), var(--orange));
+  color: #fff;
+  box-shadow: 0 4px 16px var(--orange-soft);
+}
+.btn-secondary {
+  background: var(--surface-2);
+  color: var(--cream);
+  border: 1px solid var(--border);
+}
+
+/* ── Back link ── */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+  margin-bottom: 32px;
+  transition: color .2s;
+}
+.back-link:hover { color: var(--orange); }
+
+/* ── Footer ── */
+.page-footer {
+  text-align: center;
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--soft);
+  font-size: 12px;
+  color: var(--muted);
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Back -->
+  <a href="/" class="back-link">← Back to Portfolio</a>
+
+  <!-- Header -->
+  <header class="page-header">
+    <div class="page-kicker">Data Engineering · E-Commerce Analytics</div>
+    <h1 class="page-title">Shopee Market Data Pipeline</h1>
+    <p class="page-subtitle">
+      End-to-end automated pipeline scraping Shopee product listings with Playwright,
+      transforming raw data through Python/Pandas, and delivering interactive Excel dashboards for market insight.
+    </p>
+    <div class="header-divider"></div>
+    <div class="tag-row">
+      <span class="tag">Playwright</span>
+      <span class="tag">Python</span>
+      <span class="tag">Pandas</span>
+      <span class="tag">Excel</span>
+      <span class="tag">Web Scraping</span>
+      <span class="tag">Data Visualization</span>
+    </div>
+  </header>
+
+  <!-- Pipeline diagram -->
+  <div class="pipeline">
+    <div class="pipeline-title">End-to-End Data Pipeline</div>
+    <div class="pipeline-steps">
+      <div class="p-step">
+        <div class="p-step-icon active">🕷️</div>
+        <div class="p-step-label">Playwright Scraper</div>
+        <div class="p-step-sub">Headless browser automation to capture dynamic Shopee listings</div>
+      </div>
+      <div class="p-arrow">→</div>
+      <div class="p-step">
+        <div class="p-step-icon active">🐍</div>
+        <div class="p-step-label">Python & Pandas</div>
+        <div class="p-step-sub">Clean, deduplicate & transform raw product data</div>
+      </div>
+      <div class="p-arrow">→</div>
+      <div class="p-step">
+        <div class="p-step-icon active">📊</div>
+        <div class="p-step-label">Structured Dataset</div>
+        <div class="p-step-sub">Normalized records: price, ratings, sold count, shop info</div>
+      </div>
+      <div class="p-arrow">→</div>
+      <div class="p-step">
+        <div class="p-step-icon active">📈</div>
+        <div class="p-step-label">Excel Dashboard</div>
+        <div class="p-step-sub">Interactive pivot charts, slicers & KPI panels</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-value">100+</div>
+      <div class="stat-label">Listings Scraped</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">8+</div>
+      <div class="stat-label">Fields Captured per Product</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">5</div>
+      <div class="stat-label">Dashboard Panels</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">0</div>
+      <div class="stat-label">Manual Data Entry Steps</div>
+    </div>
+  </div>
+
+  <!-- Two column: What it does + Key Findings -->
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title"><span class="icon">⚙️</span> Pipeline Features</div>
+      <ul class="feature-list">
+        <li>Headless Playwright automation bypasses JavaScript-rendered Shopee pages</li>
+        <li>Configurable keyword targeting — swap product category in one variable</li>
+        <li>Automated scroll + pagination to capture full listing pages</li>
+        <li>Data cleaning: strip currency symbols, parse sold counts, normalise ratings</li>
+        <li>Deduplication and null-handling with Pandas pipelines</li>
+        <li>One-click export to structured Excel workbook</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="icon">🔍</span> Market Insights (Camping Shoes)</div>
+      <div class="insight-item"><strong>Price Spread:</strong> Wide range across sellers — budget listings cluster below ₱500 while premium options exceed ₱2,000.</div>
+      <div class="insight-item"><strong>Ratings:</strong> Most top-sold items maintain ≥ 4.5 stars, indicating quality expectation in outdoor gear.</div>
+      <div class="insight-item"><strong>Volume Leaders:</strong> A small subset of shops account for a disproportionate share of total units sold.</div>
+      <div class="insight-item"><strong>Keyword Patterns:</strong> Listings with "waterproof" and "trail" in titles show consistently higher engagement.</div>
+    </div>
+  </div>
+
+  <!-- Dashboard sections -->
+  <div class="card-wide">
+    <div class="section-label">Excel Dashboard Breakdown</div>
+    <div class="tech-grid" style="margin-bottom:0">
+      <div class="tech-item">
+        <div class="tech-icon">📋</div>
+        <span class="tech-name">Raw Data Sheet</span>
+        <span class="tech-role">Scraped & cleaned records</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">💰</div>
+        <span class="tech-name">Price Analysis</span>
+        <span class="tech-role">Distribution & range charts</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">⭐</div>
+        <span class="tech-name">Rating Overview</span>
+        <span class="tech-role">Avg rating vs. sales volume</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">🏪</div>
+        <span class="tech-name">Top Sellers</span>
+        <span class="tech-role">Ranked by units sold</span>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">🎛️</div>
+        <span class="tech-name">Slicer Panel</span>
+        <span class="tech-role">Filter by price band & rating</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tech stack -->
+  <div class="section-label">Technology Stack</div>
+  <div class="tech-grid">
+    <div class="tech-item">
+      <div class="tech-icon">🎭</div>
+      <span class="tech-name">Playwright</span>
+      <span class="tech-role">Browser automation</span>
+    </div>
+    <div class="tech-item">
+      <div class="tech-icon">🐍</div>
+      <span class="tech-name">Python</span>
+      <span class="tech-role">Scraping & ETL logic</span>
+    </div>
+    <div class="tech-item">
+      <div class="tech-icon">🐼</div>
+      <span class="tech-name">Pandas</span>
+      <span class="tech-role">Data wrangling</span>
+    </div>
+    <div class="tech-item">
+      <div class="tech-icon">📊</div>
+      <span class="tech-name">OpenPyXL</span>
+      <span class="tech-role">Excel file generation</span>
+    </div>
+    <div class="tech-item">
+      <div class="tech-icon">📈</div>
+      <span class="tech-name">Excel</span>
+      <span class="tech-role">Pivot charts & dashboards</span>
+    </div>
+    <div class="tech-item">
+      <div class="tech-icon">🔄</div>
+      <span class="tech-name">ETL Pipeline</span>
+      <span class="tech-role">Extract · Transform · Load</span>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-row">
+    <a href="/projects/Shopee_CampingShoes_Dashboard.xlsx" class="btn btn-primary" download>
+      📥 Download Excel Dashboard
+    </a>
+    <a href="/" class="btn btn-secondary">← Back to Portfolio</a>
+  </div>
+
+  <footer class="page-footer">
+    Kylla Mariz Gelaga &mdash; Shopee Market Data Pipeline &mdash; 2025
+  </footer>
+
+</div>
+</body>
+</html>
