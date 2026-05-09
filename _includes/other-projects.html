@@ -7,6 +7,13 @@
         <a href="{{project.url}}" target="_blank" class="arrow-link">{{project.name}}</a>
       </div>
       <p>{{project.description}}</p>
+      {% if project.links %}
+      <div class="project__links">
+        {% for link in project.links %}
+        <a href="{{link.url}}" target="_blank" class="project__link">{{link.name}}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
       <div class="project__used">
         {% for item in project.used %}
         <span class="project__used__item">{{item.thing}}</span>

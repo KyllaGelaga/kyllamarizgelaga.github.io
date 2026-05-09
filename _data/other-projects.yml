@@ -1,12 +1,30 @@
 - name: Exploratory Data Analysis on Titanic Dataset
-  url: /projects/titanic-dashboard.html
-  description: An interactive data story exploring survival patterns aboard the RMS Titanic. Analysed 769 passengers across class, age, embarkation port, and fare to uncover the social dynamics behind the 19.8% survival rate. Built as a slide-based presentation with Chart.js visualisations.
+  url: /projects/titanic_overview_treasuremap.html
+  description: An interactive data story exploring survival patterns aboard the RMS Titanic. Analysed 769 passengers across class, age, embarkation port, and fare to uncover the social dynamics behind the 19.8% survival rate. Features both a treasure map overview and a slide-based presentation with Chart.js visualisations.
+  links:
+    - name: Overview (Treasure Map)
+      url: /projects/titanic_overview_treasuremap.html
+    - name: Presentation
+      url: /projects/Titanic%20%E2%80%94%20A%20Voyage%20in%20Numbers.html
   used:
     - thing: Python
     - thing: Pandas
     - thing: Chart.js
     - thing: HTML
     - thing: CSS
+
+- name: Shopee Scraper
+  url: /projects/Shopee_CampingShoes_Dashboard.xlsx
+  description: Data analytics project analyzing Shopee camping shoes listings. Includes comprehensive Excel dashboard with data visualization and filtering capabilities. View-only dashboard showcasing key metrics and trends in the camping shoes market segment.
+  links:
+    - name: Excel Dashboard
+      url: /projects/Shopee_CampingShoes_Dashboard.xlsx
+  used:
+    - thing: Python
+    - thing: Web Scraping
+    - thing: Pandas
+    - thing: Excel
+    - thing: Data Visualization
 
 - name: Surf Videos
   url: https://github.com/bchiang7/Surf-Videos

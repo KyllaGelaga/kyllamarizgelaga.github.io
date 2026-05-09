@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- saved from url=(0126)file:///C:/Users/PC/Desktop/Work%20Projects/Vercel%20-%20portfolio%20files/Titanic%20Dataset/titanic_dashboard_responsive.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -25,6 +26,9 @@ html, body {
   min-height: 100%;
 }
 
+/* ──────────────────────────────────────
+   DESKTOP / SLIDE MODE  (≥ 1024px)
+   ────────────────────────────────────── */
 .shell {
   width: 100%;
   max-width: 1500px;
@@ -32,7 +36,7 @@ html, body {
   padding: clamp(16px, 2.4vw, 28px) clamp(16px, 3vw, 48px);
 }
 
-/* — Header — */
+/* ── Header ── */
 .header {
   text-align: center;
   padding-bottom: clamp(12px, 1.8vw, 20px);
@@ -41,7 +45,7 @@ html, body {
   position: relative;
 }
 .header::before, .header::after {
-  content: "❦"; color: var(--gold); font-size: 18px;
+  content: "✦"; color: var(--gold); font-size: 18px;
   position: absolute; bottom: -12px;
   background: var(--ink-bg); padding: 0 14px;
 }
@@ -59,7 +63,7 @@ html, body {
 .title   { font-size: clamp(24px, 4.4vw, 42px); font-weight: 400; letter-spacing: clamp(2px, .5vw, 6px); color: var(--cream); text-transform: uppercase; text-shadow: 0 2px 8px rgba(0,0,0,0.6); line-height: 1.1; }
 .subtitle{ font-style: italic; font-size: clamp(12px, 1.4vw, 15px); color: var(--muted); margin-top: 6px; letter-spacing: 1px; }
 
-/* — Dots — */
+/* ── Dots ── */
 .dots {
   display: flex; justify-content: center; align-items: center;
   flex-wrap: wrap;
@@ -75,7 +79,7 @@ html, body {
 .dot.active { background: var(--gold); }
 .dot-label { font-size: 11px; letter-spacing: 4px; color: #8a9bab; text-transform: uppercase; margin-left: 10px; }
 
-/* — Slides — */
+/* ── Slides ── */
 .slides-outer { overflow: hidden; }
 .slides-track {
   display: flex;
@@ -89,7 +93,7 @@ html, body {
   padding: 0 clamp(4px, 1vw, 12px);
 }
 
-/* — Section headings — */
+/* ── Section headings ── */
 .ch-label {
   font-size: clamp(10px, 1.1vw, 12px); letter-spacing: clamp(4px, .9vw, 7px); color: var(--gold);
   text-transform: uppercase; text-align: center;
@@ -103,7 +107,7 @@ html, body {
   background: var(--gold); margin: 10px auto 0;
 }
 
-/* — Stats — */
+/* ── Stats ── */
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -124,7 +128,7 @@ html, body {
 .stat-value { font-size: clamp(32px, 4.4vw, 48px); color: var(--gold); font-weight: 700; margin-bottom: 6px; line-height: 1; }
 .stat-label { font-size: clamp(10px, 1vw, 11px); letter-spacing: 3px; color: var(--muted); text-transform: uppercase; }
 
-/* — Two-column layout for slides — */
+/* ── Two-column layout for slides ── */
 .slide-content {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
@@ -138,7 +142,7 @@ html, body {
   gap: clamp(16px, 2vw, 24px);
 }
 
-/* — Chart card — */
+/* ── Chart card ── */
 .chart-card {
   background: linear-gradient(180deg, var(--cream) 0%, #ede1c3 100%);
   border: 1px solid var(--gold); border-radius: 3px;
@@ -158,6 +162,8 @@ html, body {
   font-weight: 700; letter-spacing: 2px; margin-bottom: clamp(10px, 1.4vw, 16px);
   text-transform: uppercase;
 }
+/* Chart container — readable at any width.
+   Default uses fluid height that scales with viewport. */
 .chart-wrap {
   position: relative;
   width: 100%;
@@ -167,7 +173,7 @@ html, body {
   height: clamp(240px, 36vh, 340px);
 }
 
-/* — Side panel — */
+/* ── Side panel (insights & details) ── */
 .side-panel {
   display: flex;
   flex-direction: column;
@@ -183,7 +189,7 @@ html, body {
   position: relative;
 }
 .insight::before {
-  content: "\201C";
+  content: "❝";
   position: absolute;
   top: 4px; left: 8px;
   color: var(--gold); opacity: .35;
@@ -191,7 +197,7 @@ html, body {
 }
 .insight-body { padding-left: 24px; }
 
-/* — Detail card — */
+/* ── Detail card ── */
 .detail-card {
   background: linear-gradient(180deg, rgba(20,45,72,.6), rgba(10,25,41,.6));
   border: 1px solid rgba(201,169,97,.4);
@@ -218,7 +224,7 @@ html, body {
 .detail-key { color: var(--muted); }
 .detail-val { color: var(--gold); font-weight: 700; white-space: nowrap; }
 
-/* — Wide insight — */
+/* ── Wide insight (overview) ── */
 .insight-wide {
   padding: clamp(16px, 2vw, 24px) clamp(20px, 3vw, 36px);
   width: 100%;
@@ -232,7 +238,7 @@ html, body {
   border-radius: 3px;
 }
 
-/* — Nav — */
+/* ── Nav ── */
 .nav {
   display: flex; justify-content: space-between; align-items: center;
   padding-top: clamp(12px, 1.6vw, 18px); padding-bottom: clamp(10px, 1.4vw, 16px);
@@ -253,7 +259,7 @@ html, body {
 .nav-center { text-align: center; font-size: clamp(10px, 1vw, 11px); letter-spacing: 4px; color: #8a9bab; text-transform: uppercase; }
 .nav-num { font-size: clamp(20px, 2.2vw, 24px); color: var(--gold); display: block; font-weight: 700; line-height: 1.2; }
 
-/* — Compass watermark — */
+/* ── Decorative compass watermark ── */
 .compass {
   position: fixed;
   bottom: 24px; right: 28px;
@@ -269,7 +275,13 @@ html, body {
 .compass::before { content: "N"; position: absolute; top: 4px; font-size: 9px; }
 .compass::after  { content: "✦"; font-size: 16px; }
 
-/* Tablet (768px–1023px) */
+/* Scroll-mode wrappers (only used on mobile) */
+.chapter-label-mobile { display: none; }
+
+/* ──────────────────────────────────────
+   TABLET  (768px – 1023px)
+   Side panel drops below chart
+   ────────────────────────────────────── */
 @media (max-width: 1023px) {
   .slide-content {
     grid-template-columns: 1fr;
@@ -284,14 +296,22 @@ html, body {
   .compass { width: 48px; height: 48px; bottom: 16px; right: 16px; }
 }
 
-/* Mobile (≤ 767px) */
+/* ──────────────────────────────────────
+   MOBILE  (≤ 767px)  →  vertical scroll, no carousel
+   ────────────────────────────────────── */
 @media (max-width: 767px) {
   body { overflow-y: auto; }
+
   .shell { padding: 18px 14px 28px; }
+
   .header { padding-bottom: 14px; margin-bottom: 14px; }
   .header::before { left: 42%; }
   .header::after  { right: 42%; }
+
+  /* Hide the carousel chrome on mobile */
   .dots, .nav { display: none !important; }
+
+  /* Convert carousel into a vertical stack */
   .slides-outer { overflow: visible; }
   .slides-track {
     display: block;
@@ -306,49 +326,59 @@ html, body {
     gap: 14px;
   }
   .slide:last-child { border-bottom: none; }
+
+  /* Stats: 2 columns on small phones */
   .stats {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
   .stat { padding: 18px 10px; }
   .stat-value { font-size: 30px; }
+
+  /* Charts always stack — including the dual layout */
   .slide-content,
   .slide-content.dual {
     grid-template-columns: 1fr;
     gap: 14px;
   }
+  /* Chart heights tuned so chart canvases stay readable on phones */
   .chart-wrap { height: 320px; }
   .slide-content.dual .chart-wrap { height: 280px; }
+
   .chart-card { padding: 16px 16px 14px; }
   .chart-title { font-size: 12px; letter-spacing: 1.4px; margin-bottom: 10px; }
+
   .insight, .insight-wide { font-size: 13px; line-height: 1.65; padding: 14px 16px; }
   .insight-wide { border-right: none; }
   .insight::before { font-size: 26px; }
   .insight-body { padding-left: 20px; }
+
   .compass { display: none; }
 }
 
+/* Very narrow phones — single column for stats too */
 @media (max-width: 380px) {
   .stats { grid-template-columns: 1fr; }
   .chart-wrap { height: 280px; }
   .slide-content.dual .chart-wrap { height: 240px; }
 }
 
+/* Reduce motion preference */
 @media (prefers-reduced-motion: reduce) {
   .slides-track { transition: none; }
 }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/chart.js" crossorigin="anonymous"></script>
+<script src="./Titanic — A Voyage in Numbers_files/chart.umd.js.download" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="shell">
 
   <header class="header">
-    <span class="header-flourish-left">✦ ✦ ✦</span>
-    <div class="kicker">R.M.S. Titanic · April 15, 1912</div>
+    <span class="header-flourish-left">◆ ◆ ◆</span>
+    <div class="kicker">R.M.S. Titanic — April 15, 1912</div>
     <div class="title">A Voyage in Numbers</div>
     <div class="subtitle">An analysis of survival aboard the unsinkable ship</div>
-    <span class="header-flourish-right">✦ ✦ ✦</span>
+    <span class="header-flourish-right">◆ ◆ ◆</span>
   </header>
 
   <div class="dots" role="tablist" aria-label="Chapters">
@@ -383,7 +413,7 @@ html, body {
         <div class="slide-content">
           <div class="chart-card">
             <div class="chart-title">Who Made It to the Lifeboats?</div>
-            <div class="chart-wrap"><canvas id="chart1"></canvas></div>
+            <div class="chart-wrap"><canvas id="chart1" width="794" height="382" style="display: block; box-sizing: border-box; height: 382px; width: 794px;"></canvas></div>
           </div>
           <div class="side-panel">
             <div class="detail-card">
@@ -407,11 +437,11 @@ html, body {
         <div class="slide-content dual">
           <div class="chart-card">
             <div class="chart-title">Survivors</div>
-            <div class="chart-wrap"><canvas id="chart2"></canvas></div>
+            <div class="chart-wrap"><canvas id="chart2" width="584" height="328" style="display: block; box-sizing: border-box; height: 328px; width: 584px;"></canvas></div>
           </div>
           <div class="chart-card">
             <div class="chart-title">Non-Survivors</div>
-            <div class="chart-wrap"><canvas id="chart3"></canvas></div>
+            <div class="chart-wrap"><canvas id="chart3" width="584" height="328" style="display: block; box-sizing: border-box; height: 328px; width: 584px;"></canvas></div>
           </div>
         </div>
         <div class="insight-wide">Surviving first-class passengers averaged 41 years. The youngest survivor was just 0.17 years (two months) old in third class, while the oldest reached 76 in first class.</div>
@@ -424,7 +454,7 @@ html, body {
         <div class="slide-content">
           <div class="chart-card">
             <div class="chart-title">Three Ports, Three Fates</div>
-            <div class="chart-wrap"><canvas id="chart4"></canvas></div>
+            <div class="chart-wrap"><canvas id="chart4" width="794" height="382" style="display: block; box-sizing: border-box; height: 382px; width: 794px;"></canvas></div>
           </div>
           <div class="side-panel">
             <div class="detail-card">
@@ -448,7 +478,7 @@ html, body {
         <div class="slide-content">
           <div class="chart-card">
             <div class="chart-title">The Price of Passage</div>
-            <div class="chart-wrap"><canvas id="chart5"></canvas></div>
+            <div class="chart-wrap"><canvas id="chart5" width="794" height="382" style="display: block; box-sizing: border-box; height: 382px; width: 794px;"></canvas></div>
           </div>
           <div class="side-panel">
             <div class="detail-card">
@@ -469,7 +499,7 @@ html, body {
   </div>
 
   <div class="nav">
-    <button class="nav-btn" id="btnBack" onclick="changePage(-1)" disabled>← Back</button>
+    <button class="nav-btn" id="btnBack" onclick="changePage(-1)" disabled="">← Back</button>
     <div class="nav-center">
       <span class="nav-num" id="pageNum">1</span>of 5
     </div>
@@ -492,12 +522,18 @@ const LABELS = ['Overview','Chapter I','Chapter II','Chapter III','Chapter IV'];
 let cur = 0;
 const built = new Set();
 
+// detect mobile (vertical-scroll mode)
 const isMobile = () => window.matchMedia('(max-width: 767px)').matches;
 
 function legendOpts() {
   return {
     position: 'bottom',
-    labels: { boxWidth: 12, font: { size: 12 }, padding: 12, usePointStyle: false }
+    labels: {
+      boxWidth: 12,
+      font: { size: 12 },
+      padding: 12,
+      usePointStyle: false,
+    }
   };
 }
 
@@ -617,6 +653,7 @@ function goTo(idx){
   document.getElementById('pageNum').textContent = idx + 1;
   document.getElementById('btnBack').disabled = idx === 0;
   document.getElementById('btnNext').disabled = idx === 4;
+  // build the just-shown chart, plus the next one for snappier nav
   setTimeout(() => { buildChart(idx); buildChart(idx + 1); }, 60);
 }
 
@@ -631,8 +668,11 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft')  changePage(-1);
 });
 
+// On mobile, we render every chart at once because the user just scrolls.
+// On desktop / tablet we lazy-build per-slide.
 function init(){
   if (isMobile()) {
+    // Reset any track transform left over from a resize
     document.getElementById('track').style.transform = 'none';
     buildAll();
   } else {
@@ -640,6 +680,7 @@ function init(){
   }
 }
 
+// Re-init on layout-changing resize crossings (mobile <-> desktop).
 let lastMobile = isMobile();
 window.addEventListener('resize', () => {
   const nowMobile = isMobile();
@@ -656,5 +697,6 @@ window.addEventListener('resize', () => {
 
 init();
 </script>
+
 
 </body></html>
