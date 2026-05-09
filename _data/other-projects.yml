@@ -5,7 +5,7 @@
     - name: Overview (Treasure Map)
       url: /projects/titanic_overview_treasuremap.html
     - name: Presentation
-      url: /projects/Titanic%20%E2%80%94%20A%20Voyage%20in%20Numbers.html
+      url: /projects/titanic-presentation.html
   used:
     - thing: Python
     - thing: Pandas
