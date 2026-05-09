@@ -240,6 +240,16 @@ export default function Home() {
                     tags: ['Power BI', 'DAX', 'SQL', 'Excel'],
                     links: { youtube: '#', presentation: '#', overview: '#' },
                   },
+                  {
+                    title: 'Shopee Market Data Pipeline: Playwright Scraping with Excel Analytics',
+                    desc: 'End-to-end automated pipeline that scrapes Shopee product listings with Playwright, cleans and transforms data via Python/Pandas, and delivers an interactive Excel dashboard with pivot charts and slicers for camping shoes market analysis.',
+                    tags: ['Playwright', 'Python', 'Pandas', 'Excel', 'ETL Pipeline'],
+                    links: {
+                      youtube: '#',
+                      presentation: '/projects/Shopee_CampingShoes_Dashboard.xlsx',
+                      overview: '/projects/shopee-market-data-pipeline.html',
+                    },
+                  },
                 ].map(({ title, desc, tags, links }) => (
                   <div key={title} className="project-card">
                     <div className="project-card__top">
