@@ -34,20 +34,13 @@ html, body {
   overflow-x: hidden;
 }
 
-/* ======================================================
-   PAGE WRAPPER (so the preview can be embedded in any
-   website; just lift the .map-preview block on its own)
-   ====================================================== */
 .page {
   max-width: 1100px;
   margin: 0 auto;
   padding: clamp(28px, 5vw, 64px) clamp(16px, 4vw, 40px) clamp(40px, 6vw, 80px);
 }
 
-.page-header {
-  text-align: center;
-  margin-bottom: clamp(28px, 4vw, 48px);
-}
+.page-header { text-align: center; margin-bottom: clamp(28px, 4vw, 48px); }
 .page-kicker {
   font-size: clamp(10px, 1.1vw, 12px);
   letter-spacing: clamp(4px, .8vw, 8px);
@@ -78,9 +71,7 @@ html, body {
   perspective: 1400px;
 }
 
-/* ======================================================
-   FOLDED MAP PREVIEW (the closed state)
-   ====================================================== */
+/* ============== FOLDED PREVIEW ============== */
 .map-preview {
   position: relative;
   width: min(420px, 100%);
@@ -108,7 +99,6 @@ html, body {
     inset 0 0 0 1px rgba(120,90,40,.5),
     inset 0 0 80px rgba(120,80,30,.3);
 }
-/* Parchment grain texture */
 .map-preview::before {
   content: "";
   position: absolute; inset: 0;
@@ -122,39 +112,26 @@ html, body {
   mix-blend-mode: multiply;
   opacity: .8;
 }
-/* Visible fold creases */
 .map-preview::after {
   content: "";
   position: absolute;
   top: 0; bottom: 0;
   left: 50%;
   width: 1px;
-  background: linear-gradient(180deg,
-    transparent 0%,
-    rgba(80,50,20,.35) 15%,
-    rgba(80,50,20,.4) 50%,
-    rgba(80,50,20,.35) 85%,
-    transparent 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(80,50,20,.35) 15%, rgba(80,50,20,.4) 50%, rgba(80,50,20,.35) 85%, transparent 100%);
   box-shadow: -1px 0 0 rgba(255,235,190,.35), 1px 0 0 rgba(80,50,20,.18);
   pointer-events: none;
 }
 .fold-h {
   position: absolute;
-  left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(80,50,20,.35) 15%,
-    rgba(80,50,20,.4) 50%,
-    rgba(80,50,20,.35) 85%,
-    transparent 100%);
+  left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(80,50,20,.35) 15%, rgba(80,50,20,.4) 50%, rgba(80,50,20,.35) 85%, transparent 100%);
   box-shadow: 0 -1px 0 rgba(255,235,190,.35), 0 1px 0 rgba(80,50,20,.18);
   pointer-events: none;
 }
 .fold-h.top    { top: 33.33%; }
 .fold-h.bottom { top: 66.66%; }
 
-/* Burned-edge mask */
 .map-preview .edge {
   position: absolute; inset: 0;
   pointer-events: none;
@@ -190,7 +167,6 @@ html, body {
 .compass-mini {
   width: clamp(64px, 14%, 90px);
   aspect-ratio: 1;
-  position: relative;
   display: flex; align-items: center; justify-content: center;
 }
 .compass-mini svg { width: 100%; height: 100%; }
@@ -240,7 +216,6 @@ html, body {
   background: var(--gold-deep);
   color: var(--cream);
 }
-
 .preview-hint {
   text-align: center;
   margin-top: 22px;
@@ -251,9 +226,7 @@ html, body {
   opacity: .85;
 }
 
-/* ======================================================
-   OVERLAY + UNFOLDING TREASURE MAP
-   ====================================================== */
+/* ============== UNFOLDING OVERLAY ============== */
 .map-overlay {
   position: fixed; inset: 0;
   background: radial-gradient(ellipse at center, rgba(8,15,28,.85) 0%, rgba(2,6,12,.96) 80%);
@@ -280,11 +253,6 @@ html, body {
   transform-style: preserve-3d;
 }
 
-/* The map itself, built from 6 hinged panels arranged 3x2.
-   Stage 0: collapsed at center.
-   Stage 1: horizontal flaps unfold left/right.
-   Stage 2: vertical flaps unfold top/bottom.
-   Stage 3: content fades in. */
 .map {
   position: relative;
   width: 100%;
@@ -302,17 +270,13 @@ html, body {
     inset 0 0 120px rgba(120,80,30,.25);
   transform: scale(.18) rotateZ(-3deg);
   opacity: 0;
-  transition:
-    transform .9s cubic-bezier(.55,.05,.25,1),
-    opacity .35s ease;
+  transition: transform .9s cubic-bezier(.55,.05,.25,1), opacity .35s ease;
   overflow: hidden;
 }
 .map-overlay.open .map {
   transform: scale(1) rotateZ(0);
   opacity: 1;
 }
-
-/* Parchment grain + foxing stains */
 .map::before {
   content: "";
   position: absolute; inset: 0;
@@ -339,10 +303,7 @@ html, body {
   mix-blend-mode: multiply;
 }
 
-/* Fold creases on the unfolded map (horizontal thirds + vertical halves) */
-.map-creases {
-  position: absolute; inset: 0; pointer-events: none; z-index: 1;
-}
+.map-creases { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
 .map-creases .vfold {
   position: absolute; top: 0; bottom: 0; left: 50%; width: 1px;
   background: linear-gradient(180deg, transparent, rgba(80,50,20,.28) 12%, rgba(80,50,20,.32) 50%, rgba(80,50,20,.28) 88%, transparent);
@@ -359,7 +320,6 @@ html, body {
 .map-overlay.open .map-creases .vfold,
 .map-overlay.open .map-creases .hfold { opacity: 1; }
 
-/* Inner content fades in once unfolded */
 .map-inner {
   position: relative;
   z-index: 2;
@@ -374,8 +334,44 @@ html, body {
   transition: opacity .5s ease .7s, transform .5s ease .7s;
   overflow: auto;
 }
+.map-overlay.open .map-inner {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-/* ── Foreword ribbon ── */
+.map-head {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: clamp(12px, 2vw, 24px);
+  padding-bottom: clamp(8px, 1.2vw, 14px);
+  border-bottom: 2px double var(--gold-deep);
+}
+.map-head .flourish { height: 1px; background: linear-gradient(90deg, transparent, var(--gold-deep), transparent); }
+.map-head-center { text-align: center; }
+.map-kicker {
+  font-size: clamp(10px, 1vw, 12px);
+  letter-spacing: clamp(3px, .6vw, 6px);
+  color: var(--gold-deep);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.map-title {
+  font-size: clamp(20px, 3vw, 32px);
+  letter-spacing: clamp(2px, .4vw, 5px);
+  text-transform: uppercase;
+  color: var(--ink);
+  font-weight: 700;
+  line-height: 1.1;
+}
+.map-subtitle {
+  font-style: italic;
+  font-size: clamp(11px, 1.2vw, 13px);
+  color: var(--gold-deep);
+  margin-top: 5px;
+  letter-spacing: 1px;
+}
+
 .foreword {
   position: relative;
   padding: clamp(10px, 1.3vw, 14px) clamp(16px, 2.2vw, 24px);
@@ -419,49 +415,7 @@ html, body {
   font-style: normal;
   font-weight: 700;
 }
-.map-overlay.open .map-inner {
-  opacity: 1;
-  transform: translateY(0);
-}
 
-/* ── Map title block ── */
-.map-head {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: clamp(12px, 2vw, 24px);
-  padding-bottom: clamp(10px, 1.5vw, 16px);
-  border-bottom: 2px double var(--gold-deep);
-}
-.map-head .flourish {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-deep), transparent);
-}
-.map-head-center { text-align: center; }
-.map-kicker {
-  font-size: clamp(10px, 1vw, 12px);
-  letter-spacing: clamp(3px, .6vw, 6px);
-  color: var(--gold-deep);
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
-.map-title {
-  font-size: clamp(22px, 3.4vw, 36px);
-  letter-spacing: clamp(2px, .4vw, 5px);
-  text-transform: uppercase;
-  color: var(--ink);
-  font-weight: 700;
-  line-height: 1.1;
-}
-.map-subtitle {
-  font-style: italic;
-  font-size: clamp(12px, 1.3vw, 14px);
-  color: var(--gold-deep);
-  margin-top: 6px;
-  letter-spacing: 1px;
-}
-
-/* ── Map body: route on the left, data cartouches on the right ── */
 .map-body {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
@@ -470,7 +424,6 @@ html, body {
   min-height: 0;
 }
 
-/* Route panel */
 .route-panel {
   position: relative;
   border: 1px dashed rgba(80,50,20,.35);
@@ -495,10 +448,9 @@ html, body {
 .route-svg {
   width: 100%;
   flex: 1;
-  min-height: 200px;
+  min-height: 220px;
 }
 
-/* Data cartouches: 2x2, tightened */
 .cartouches {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -513,7 +465,7 @@ html, body {
   background: rgba(255,245,210,.45);
   border: 1px solid var(--gold-deep);
   border-radius: 3px;
-  padding: clamp(10px, 1.3vw, 14px) clamp(10px, 1.3vw, 14px);
+  padding: clamp(10px, 1.3vw, 14px);
   text-align: center;
   box-shadow: inset 0 0 0 3px rgba(255,245,210,.5), 0 1px 0 rgba(255,245,210,.6);
   display: flex;
@@ -548,7 +500,6 @@ html, body {
   font-style: italic;
 }
 
-/* ── Story strip across the bottom ── */
 .story-strip {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -593,7 +544,6 @@ html, body {
   line-height: 1.35;
 }
 
-/* Close button */
 .map-close {
   position: absolute;
   top: 12px; right: 12px;
@@ -611,9 +561,6 @@ html, body {
 }
 .map-close:hover { background: var(--gold); color: var(--ink-bg); }
 
-/* ======================================================
-   RESPONSIVE
-   ====================================================== */
 @media (max-width: 900px) {
   .map { aspect-ratio: auto; min-height: 88vh; }
   .map-body { grid-template-columns: 1fr; }
@@ -648,7 +595,6 @@ html, body {
   </header>
 
   <div class="preview-stage">
-    <!-- ============== EMBEDDABLE PREVIEW ============== -->
     <div class="map-preview" id="mapPreview" role="button" tabindex="0" aria-label="Open Titanic overview">
       <div class="edge"></div>
       <div class="fold-h top"></div>
@@ -683,7 +629,6 @@ html, body {
         <div class="preview-cta">Unfold the map →</div>
       </div>
     </div>
-    <!-- ============ END EMBEDDABLE PREVIEW ============ -->
   </div>
 
   <p class="preview-hint">Best viewed on desktop. Click the map to reveal the full overview.</p>
@@ -703,7 +648,6 @@ html, body {
 
       <div class="map-inner">
 
-        <!-- HEAD -->
         <header class="map-head">
           <div class="flourish"></div>
           <div class="map-head-center">
@@ -714,7 +658,6 @@ html, body {
           <div class="flourish"></div>
         </header>
 
-        <!-- FOREWORD: what this report is about -->
         <aside class="foreword">
           <div class="foreword-label">About This Report</div>
           <p class="foreword-text">
@@ -722,118 +665,185 @@ html, body {
           </p>
         </aside>
 
-        <!-- BODY: route + cartouches -->
         <div class="map-body">
 
-          <!-- Route panel -->
           <section class="route-panel">
             <div class="route-panel-title">The Route, the Wreck, the Ports</div>
-            <svg class="route-svg" viewBox="0 0 720 400" preserveAspectRatio="xMidYMid meet" aria-label="Map of the Titanic route">
-              <!-- water tone -->
+            <svg class="route-svg" viewBox="0 0 720 400" preserveAspectRatio="xMidYMid meet" aria-label="Map of the Titanic route across the North Atlantic">
+              <!-- water -->
               <rect x="0" y="0" width="720" height="400" fill="rgba(60,90,130,.07)"/>
 
-              <!-- decorative latitude / longitude lines -->
-              <g stroke="rgba(80,50,20,.16)" stroke-dasharray="2 4" stroke-width=".6" fill="none">
+              <!-- lat/long grid -->
+              <g stroke="rgba(80,50,20,.14)" stroke-dasharray="2 4" stroke-width=".5" fill="none">
                 <line x1="20" y1="90"  x2="700" y2="90"/>
                 <line x1="20" y1="180" x2="700" y2="180"/>
                 <line x1="20" y1="270" x2="700" y2="270"/>
                 <line x1="20" y1="350" x2="700" y2="350"/>
                 <line x1="120" y1="20" x2="120" y2="380"/>
-                <line x1="260" y1="20" x2="260" y2="380"/>
-                <line x1="400" y1="20" x2="400" y2="380"/>
-                <line x1="540" y1="20" x2="540" y2="380"/>
+                <line x1="280" y1="20" x2="280" y2="380"/>
+                <line x1="440" y1="20" x2="440" y2="380"/>
+                <line x1="600" y1="20" x2="600" y2="380"/>
               </g>
 
-              <!-- ── coastlines ── -->
-              <!-- Europe (right edge, narrow so labels have ocean room) -->
-              <path d="M 600,40 Q 650,90 660,170 Q 670,250 660,320 Q 650,370 620,380 L 700,380 L 700,40 Z"
-                    fill="rgba(140,100,50,.18)" stroke="rgba(80,50,20,.4)" stroke-width="1"/>
-              <!-- N. America (left edge, well clear of the NY label) -->
-              <path d="M 20,380 L 20,260 Q 30,230 60,225 Q 80,215 70,260 Q 65,290 50,330 Q 35,360 40,380 Z"
-                    fill="rgba(140,100,50,.2)" stroke="rgba(80,50,20,.4)" stroke-width="1"/>
-              <!-- Iceland (decorative, top-left) -->
-              <path d="M 30,90 Q 55,75 90,85 Q 105,100 90,115 Q 60,118 38,110 Q 25,103 30,90 Z"
-                    fill="rgba(140,100,50,.22)" stroke="rgba(80,50,20,.4)" stroke-width="1"/>
+              <!-- ===== COASTLINES ===== -->
 
-              <!-- continent labels (placed in clear, non-overlapping zones) -->
-              <text x="675" y="60" font-family="Georgia" font-size="12" font-style="italic"
+              <!-- North America: full left side, with Newfoundland bump and a Cape Cod / NY area below -->
+              <path d="M 0,0
+                       L 215,0
+                       Q 240,30 235,70
+                       Q 260,90 270,130
+                       Q 280,160 250,170
+                       Q 215,170 195,160
+                       Q 175,165 180,190
+                       Q 195,210 175,225
+                       Q 145,235 115,235
+                       Q 95,250 90,275
+                       Q 75,285 65,295
+                       Q 50,305 45,330
+                       Q 40,360 30,380
+                       Q 22,395 18,400
+                       L 0,400 Z"
+                    fill="rgba(140,100,50,.2)" stroke="rgba(80,50,20,.45)" stroke-width="1"/>
+
+              <!-- Greenland: top center -->
+              <path d="M 300,0
+                       Q 340,15 355,45
+                       Q 365,75 345,90
+                       Q 315,95 295,80
+                       Q 285,55 290,30
+                       Q 295,10 300,0 Z"
+                    fill="rgba(140,100,50,.18)" stroke="rgba(80,50,20,.4)" stroke-width="1"/>
+
+              <!-- Iceland -->
+              <path d="M 470,75
+                       Q 500,68 515,82
+                       Q 520,100 500,108
+                       Q 478,108 470,95
+                       Q 465,82 470,75 Z"
+                    fill="rgba(140,100,50,.2)" stroke="rgba(80,50,20,.4)" stroke-width="1"/>
+
+              <!-- Ireland (separate island) -->
+              <path d="M 555,158
+                       Q 580,153 593,170
+                       Q 598,190 580,202
+                       Q 558,205 548,188
+                       Q 545,170 555,158 Z"
+                    fill="rgba(140,100,50,.22)" stroke="rgba(80,50,20,.45)" stroke-width="1"/>
+
+              <!-- Great Britain (separate island, east of Ireland) -->
+              <path d="M 615,130
+                       Q 640,122 652,140
+                       Q 660,160 650,178
+                       Q 645,195 632,200
+                       Q 622,193 626,180
+                       Q 618,170 622,158
+                       Q 612,148 615,130 Z"
+                    fill="rgba(140,100,50,.22)" stroke="rgba(80,50,20,.45)" stroke-width="1"/>
+
+              <!-- France / continental Europe (right edge) -->
+              <path d="M 670,195
+                       Q 685,210 690,240
+                       Q 695,275 690,310
+                       Q 685,355 672,395
+                       L 720,400
+                       L 720,195 Z"
+                    fill="rgba(140,100,50,.2)" stroke="rgba(80,50,20,.45)" stroke-width="1"/>
+
+              <!-- ===== LABELS ===== -->
+              <text x="430" y="70" font-family="Georgia" font-size="14" font-style="italic"
+                    fill="rgba(80,50,20,.55)" text-anchor="middle" letter-spacing="4">North Atlantic Ocean</text>
+              <text x="100" y="200" font-family="Georgia" font-size="12" font-style="italic"
+                    fill="rgba(80,50,20,.6)" text-anchor="middle" letter-spacing="2">N. America</text>
+              <text x="703" y="395" font-family="Georgia" font-size="12" font-style="italic"
                     fill="rgba(80,50,20,.6)" text-anchor="end" letter-spacing="2">Europe</text>
-              <text x="30" y="395" font-family="Georgia" font-size="12" font-style="italic"
-                    fill="rgba(80,50,20,.6)" text-anchor="start" letter-spacing="2">N. America</text>
-              <text x="60" y="105" font-family="Georgia" font-size="9" font-style="italic"
+              <text x="325" y="55" font-family="Georgia" font-size="9" font-style="italic"
+                    fill="rgba(80,50,20,.5)" text-anchor="middle">Greenland</text>
+              <text x="492" y="125" font-family="Georgia" font-size="9" font-style="italic"
                     fill="rgba(80,50,20,.5)" text-anchor="middle">Iceland</text>
 
-              <!-- sea label -->
-              <text x="380" y="70" font-family="Georgia" font-size="14" font-style="italic"
-                    fill="rgba(80,50,20,.55)" text-anchor="middle" letter-spacing="4">North Atlantic Ocean</text>
+              <!-- ===== ROUTE ===== -->
 
-              <!-- ── route line: Southampton -> Cherbourg -> Queenstown -> wreck -> NY ── -->
-              <path d="M 605,150 Q 625,175 615,200 Q 590,230 540,235 Q 480,240 430,240 Q 360,230 310,215 Q 240,210 175,235 Q 130,260 95,300"
-                    fill="none" stroke="#a0392c" stroke-width="2" stroke-dasharray="6 5" opacity=".85"/>
+              <!-- Solid: Southampton -> Cherbourg (south), Cherbourg -> Queenstown (around south coast of England, into the Celtic Sea), Queenstown -> Wreck (long Atlantic arc) -->
+              <path d="M 645,180 Q 668,195 678,205"
+                    fill="none" stroke="#a0392c" stroke-width="2" opacity=".9"/>
+              <path d="M 678,205 Q 645,225 600,210 Q 585,195 575,178"
+                    fill="none" stroke="#a0392c" stroke-width="2" opacity=".9"/>
+              <path d="M 575,178 Q 470,205 380,225 Q 320,235 295,240"
+                    fill="none" stroke="#a0392c" stroke-width="2" opacity=".9"/>
 
-              <!-- ── ports (labels go LEFT into the ocean, anchor=end) ── -->
-
-              <!-- Southampton -->
-              <g transform="translate(605,150)">
-                <circle r="5.5" fill="#3a2c1e"/>
-                <circle r="10" fill="none" stroke="#3a2c1e" stroke-width=".8"/>
-                <text x="-14" y="-3" font-family="Georgia" font-size="12" font-weight="700"
-                      fill="#3a2c1e" text-anchor="end">Southampton</text>
-                <text x="-14" y="11" font-family="Georgia" font-size="10"
-                      fill="#8a6d3b" text-anchor="end">529 boarded · 42% survived</text>
+              <!-- direction arrows along the Atlantic crossing -->
+              <g fill="#a0392c">
+                <polygon points="0,-4 8,0 0,4" transform="translate(520,196) rotate(170)"/>
+                <polygon points="0,-4 8,0 0,4" transform="translate(440,217) rotate(168)"/>
+                <polygon points="0,-4 8,0 0,4" transform="translate(355,233) rotate(170)"/>
               </g>
 
-              <!-- Cherbourg -->
-              <g transform="translate(615,200)">
+              <!-- Dashed: Wreck -> New York (intended, never reached) -->
+              <path d="M 295,240 Q 200,260 95,290"
+                    fill="none" stroke="#a0392c" stroke-width="1.6" stroke-dasharray="5 4" opacity=".75"/>
+              <g fill="#a0392c" opacity=".75">
+                <polygon points="0,-4 8,0 0,4" transform="translate(195,265) rotate(170)"/>
+              </g>
+
+              <!-- ===== PORTS ===== -->
+
+              <!-- Southampton: south UK, label goes RIGHT into ocean -->
+              <g transform="translate(645,180)">
                 <circle r="4.5" fill="#3a2c1e"/>
                 <circle r="9" fill="none" stroke="#3a2c1e" stroke-width=".7"/>
-                <text x="-14" y="-3" font-family="Georgia" font-size="11" font-weight="700"
+                <text x="13" y="-4" font-family="Georgia" font-size="11" font-weight="700" fill="#3a2c1e">Southampton</text>
+                <text x="13" y="9" font-family="Georgia" font-size="10" fill="#8a6d3b">529 boarded · 42% survived</text>
+              </g>
+
+              <!-- Cherbourg: north France, label goes LEFT-DOWN into ocean -->
+              <g transform="translate(678,205)">
+                <circle r="4.5" fill="#3a2c1e"/>
+                <circle r="9" fill="none" stroke="#3a2c1e" stroke-width=".7"/>
+                <text x="-13" y="22" font-family="Georgia" font-size="11" font-weight="700"
                       fill="#3a2c1e" text-anchor="end">Cherbourg</text>
-                <text x="-14" y="10" font-family="Georgia" font-size="10"
+                <text x="-13" y="35" font-family="Georgia" font-size="10"
                       fill="#8a6d3b" text-anchor="end">43% survived</text>
               </g>
 
-              <!-- Queenstown -->
-              <g transform="translate(485,242)">
+              <!-- Queenstown: south Ireland, label goes UP-LEFT into ocean -->
+              <g transform="translate(575,178)">
                 <circle r="4.5" fill="#3a2c1e"/>
                 <circle r="9" fill="none" stroke="#3a2c1e" stroke-width=".7"/>
-                <text x="0" y="22" font-family="Georgia" font-size="11" font-weight="700"
-                      fill="#3a2c1e" text-anchor="middle">Queenstown</text>
-                <text x="0" y="35" font-family="Georgia" font-size="10"
-                      fill="#8a6d3b" text-anchor="middle">50% survived</text>
+                <text x="-13" y="-7" font-family="Georgia" font-size="11" font-weight="700"
+                      fill="#3a2c1e" text-anchor="end">Queenstown</text>
+                <text x="-13" y="6" font-family="Georgia" font-size="10"
+                      fill="#8a6d3b" text-anchor="end">50% survived</text>
               </g>
 
-              <!-- Wreck X -->
-              <g transform="translate(330,212)">
+              <!-- Titanic wreck X -->
+              <g transform="translate(295,240)">
                 <line x1="-10" y1="-10" x2="10" y2="10" stroke="#a0392c" stroke-width="2.6"/>
                 <line x1="-10" y1="10"  x2="10" y2="-10" stroke="#a0392c" stroke-width="2.6"/>
                 <text x="0" y="-18" font-family="Georgia" font-size="12" font-weight="700"
-                      fill="#a0392c" text-anchor="middle">Wreck Site</text>
+                      fill="#a0392c" text-anchor="middle">Titanic</text>
                 <text x="0" y="30" font-family="Georgia" font-size="10" font-style="italic"
                       fill="#8a6d3b" text-anchor="middle">15 April, 02:20</text>
               </g>
 
-              <!-- Destination NY (label goes RIGHT, anchor=start, away from N. America label) -->
-              <g transform="translate(95,300)">
+              <!-- New York: label goes RIGHT into ocean -->
+              <g transform="translate(95,290)">
                 <circle r="4.5" fill="#3a2c1e"/>
                 <circle r="9" fill="none" stroke="#3a2c1e" stroke-width=".7" stroke-dasharray="2 2"/>
-                <text x="14" y="-3" font-family="Georgia" font-size="11" font-weight="700"
-                      fill="#3a2c1e" text-anchor="start">New York</text>
-                <text x="14" y="10" font-family="Georgia" font-size="10" font-style="italic"
-                      fill="#8a6d3b" text-anchor="start">never reached</text>
+                <text x="13" y="-4" font-family="Georgia" font-size="11" font-weight="700" fill="#3a2c1e">New York</text>
+                <text x="13" y="9" font-family="Georgia" font-size="10" font-style="italic" fill="#8a6d3b">never reached</text>
               </g>
 
-              <!-- compass rose (top-left, well clear of all labels) -->
-              <g transform="translate(150,110)">
-                <circle r="30" fill="rgba(255,245,210,.55)" stroke="rgba(80,50,20,.5)" stroke-width=".9"/>
-                <circle r="22" fill="none" stroke="rgba(80,50,20,.4)" stroke-width=".5" stroke-dasharray="2 2"/>
-                <polygon points="0,-28 5,0 0,28 -5,0" fill="#a0392c" opacity=".85"/>
-                <polygon points="-28,0 0,-5 28,0 0,5" fill="#3a2c1e" opacity=".7"/>
-                <circle r="2.5" fill="#8a6d3b"/>
-                <text y="-32" text-anchor="middle" font-family="Georgia" font-size="9" font-weight="700" fill="#3a2c1e">N</text>
-                <text y="40" text-anchor="middle" font-family="Georgia" font-size="9" fill="#3a2c1e">S</text>
-                <text x="-34" y="3" font-family="Georgia" font-size="9" fill="#3a2c1e">W</text>
-                <text x="34" y="3" font-family="Georgia" font-size="9" fill="#3a2c1e">E</text>
+              <!-- ===== COMPASS ROSE (lower-middle ocean, clear of routes and labels) ===== -->
+              <g transform="translate(380,340)">
+                <circle r="26" fill="rgba(255,245,210,.55)" stroke="rgba(80,50,20,.5)" stroke-width=".9"/>
+                <circle r="19" fill="none" stroke="rgba(80,50,20,.4)" stroke-width=".5" stroke-dasharray="2 2"/>
+                <polygon points="0,-24 4,0 0,24 -4,0" fill="#a0392c" opacity=".85"/>
+                <polygon points="-24,0 0,-4 24,0 0,4" fill="#3a2c1e" opacity=".7"/>
+                <circle r="2.2" fill="#8a6d3b"/>
+                <text y="-28" text-anchor="middle" font-family="Georgia" font-size="9" font-weight="700" fill="#3a2c1e">N</text>
+                <text y="35" text-anchor="middle" font-family="Georgia" font-size="9" fill="#3a2c1e">S</text>
+                <text x="-30" y="3" font-family="Georgia" font-size="9" fill="#3a2c1e">W</text>
+                <text x="30" y="3" font-family="Georgia" font-size="9" fill="#3a2c1e">E</text>
               </g>
             </svg>
           </section>
@@ -863,7 +873,7 @@ html, body {
           </section>
         </div>
 
-        <!-- Story strip: four data findings, full width -->
+        <!-- Story strip: four findings, full width -->
         <section class="story-strip">
           <div class="story">
             <div class="story-x">✕</div>
