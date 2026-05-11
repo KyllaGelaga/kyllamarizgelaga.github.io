@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automated Invoice Follow-Up System Overview</title>
+<style>
+  :root {
+    --bg-1: #0f172a;
+    --bg-2: #1e293b;
+    --bg-3: #0b1224;
+    --accent: #6366f1;
+    --accent-2: #8b5cf6;
+    --accent-3: #06b6d4;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+    --card: rgba(30, 41, 59, 0.6);
+    --card-border: rgba(148, 163, 184, 0.12);
+    --glow: 0 0 80px rgba(99, 102, 241, 0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+    background: var(--bg-1);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(99, 102, 241, 0.18), transparent 45%),
+      radial-gradient(circle at 85% 20%, rgba(139, 92, 246, 0.15), transparent 45%),
+      radial-gradient(circle at 50% 100%, rgba(6, 182, 212, 0.12), transparent 50%);
+    color: var(--text);
+    line-height: 1.65;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 32px 80px;
+  }
+
+  /* ───── Hero ───── */
+  .hero {
+    text-align: center;
+    padding: 60px 20px 80px;
+    position: relative;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #a5b4fc;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+  }
+
+  .hero-badge::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #10b981;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .hero h1 {
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #fff 0%, #a5b4fc 50%, #c4b5fd 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    max-width: 680px;
+    margin: 0 auto;
+    font-weight: 400;
+  }
+
+  /* ───── Section ───── */
+  .section {
+    margin-bottom: 72px;
+  }
+
+  .section-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+    color: #fff;
+  }
+
+  .section-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    margin-bottom: 36px;
+    max-width: 720px;
+  }
+
+  /* ───── Cards Grid ───── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 28px;
+    backdrop-filter: blur(20px);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(99, 102, 241, 0.4);
+  }
+
+  .card:hover::before { opacity: 1; }
+
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    font-size: 22px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+    border: 1px solid rgba(99, 102, 241, 0.3);
+  }
+
+  .card h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* ───── Email Preview Section ───── */
+  .email-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .email-tab {
+    padding: 10px 20px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 100px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .email-tab .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .email-tab[data-tab="1"] .dot { background: #2980b9; box-shadow: 0 0 8px #2980b9; }
+  .email-tab[data-tab="2"] .dot { background: #e67e22; box-shadow: 0 0 8px #e67e22; }
+  .email-tab[data-tab="3"] .dot { background: #d32f2f; box-shadow: 0 0 8px #d32f2f; }
+
+  .email-tab.active {
+    color: #fff;
+    background: rgba(99, 102, 241, 0.18);
+    border-color: rgba(99, 102, 241, 0.5);
+  }
+
+  .email-tab:hover:not(.active) {
+    color: var(--text);
+    border-color: rgba(148, 163, 184, 0.3);
+  }
+
+  .email-preview-frame {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+  }
+
+  .email-header {
+    background: #f6f8fc;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .email-meta-row {
+    display: flex;
+    gap: 8px;
+    font-size: 13px;
+    color: #5f6368;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+  }
+
+  .email-meta-row strong {
+    color: #202124;
+    min-width: 70px;
+    font-weight: 600;
+  }
+
+  .email-subject {
+    font-size: 16px;
+    font-weight: 700;
+    color: #202124;
+    margin-top: 4px;
+  }
+
+  .email-body {
+    padding: 24px;
+    color: #222;
+    font-family: Arial, sans-serif;
+  }
+
+  .email-pane {
+    display: none;
+  }
+
+  .email-pane.active {
+    display: block;
+  }
+
+  /* ───── Flow Diagram ───── */
+  .flow {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 40px;
+    backdrop-filter: blur(20px);
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 24px;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .flow-step:hover {
+    border-color: var(--accent);
+    background: rgba(99, 102, 241, 0.08);
+  }
+
+  .flow-number {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+    color: white;
+  }
+
+  .flow-arrow {
+    text-align: center;
+    color: var(--text-dim);
+    margin: 4px 0;
+    font-size: 20px;
+  }
+
+  .flow-content strong {
+    color: #fff;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .flow-content span {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  /* ───── Tier Cards ───── */
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .tier {
+    border-radius: 16px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+    background: var(--card);
+    backdrop-filter: blur(20px);
+    transition: transform 0.3s ease;
+  }
+
+  .tier:hover { transform: translateY(-4px); }
+
+  .tier-1 { border-top: 3px solid var(--success); }
+  .tier-2 { border-top: 3px solid var(--warning); }
+  .tier-3 { border-top: 3px solid var(--danger); }
+
+  .tier-days {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .tier-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+
+  .tier-tone {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .tier-1 .tier-tone {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+  }
+  .tier-2 .tier-tone {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+  }
+  .tier-3 .tier-tone {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+  }
+
+  .tier-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+  }
+
+  .tier-status {
+    font-family: "SF Mono", Monaco, monospace;
+    font-size: 0.8rem;
+    padding: 6px 10px;
+    background: rgba(15, 23, 42, 0.6);
+    border-radius: 6px;
+    color: var(--text);
+    display: inline-block;
+  }
+
+  /* ───── Setup Steps ───── */
+  .setup-list {
+    counter-reset: setup;
+    list-style: none;
+  }
+
+  .setup-item {
+    counter-increment: setup;
+    display: flex;
+    gap: 20px;
+    padding: 24px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    margin-bottom: 14px;
+    transition: border-color 0.3s ease;
+  }
+
+  .setup-item:hover { border-color: rgba(99, 102, 241, 0.4); }
+
+  .setup-item::before {
+    content: counter(setup);
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-3));
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .setup-item h4 {
+    color: #fff;
+    margin-bottom: 6px;
+    font-size: 1.1rem;
+  }
+
+  .setup-item p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  code {
+    font-family: "SF Mono", Monaco, monospace;
+    background: rgba(99, 102, 241, 0.15);
+    color: #a5b4fc;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 0.88em;
+  }
+
+  /* ───── Schedule / Stat Strip ───── */
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 18px;
+    padding: 30px;
+    margin: 30px 0;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-value {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #fff;
+    background: linear-gradient(135deg, #a5b4fc, #c4b5fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  /* ───── Roadmap ───── */
+  .roadmap-group {
+    margin-bottom: 32px;
+  }
+
+  .roadmap-heading {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent-3);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .roadmap-heading::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: var(--accent-3);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent-3);
+  }
+
+  .roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+  }
+
+  .roadmap-card {
+    padding: 18px;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .roadmap-card:hover {
+    border-color: var(--accent-3);
+    background: rgba(6, 182, 212, 0.05);
+  }
+
+  .roadmap-card strong {
+    color: #fff;
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.98rem;
+  }
+
+  .roadmap-card span {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  /* ───── Footer ───── */
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--card-border);
+    margin-top: 60px;
+  }
+
+  /* ───── Responsive ───── */
+  @media (max-width: 640px) {
+    .container { padding: 40px 18px 60px; }
+    .section-title { font-size: 1.6rem; }
+    .flow { padding: 24px; }
+    .setup-item { flex-direction: column; gap: 12px; }
+    .email-body { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ───── Hero ───── -->
+  <section class="hero">
+    <div class="hero-badge">Active n8n Workflow</div>
+    <h1>Automated Invoice<br>Follow-Up System</h1>
+    <p>Stop chasing unpaid invoices manually. This workflow does it for you, every morning, with the right tone, at the right time.</p>
+  </section>
+
+  <!-- ───── WHAT ───── -->
+  <section class="section">
+    <span class="section-label">What it is</span>
+    <h2 class="section-title">Your invoice collection, on autopilot</h2>
+    <p class="section-subtitle">An n8n workflow that monitors a Google Sheets tracker and sends escalating reminder emails to clients based on how many days their invoice is overdue. After each email, the tracker is updated automatically.</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>Google Sheets-driven</h3>
+        <p>Reads invoices from your tracker spreadsheet and writes updates back automatically, no separate database needed.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">✉️</div>
+        <h3>Three-tier email escalation</h3>
+        <p>Friendly nudges become firm follow-ups become urgent escalations as days slip by, automatically.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⏰</div>
+        <h3>Runs every morning</h3>
+        <p>Triggered daily at 9 AM Eastern. You wake up, it's already done. Status changes appear in the sheet.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🛡️</div>
+        <h3>Duplicate-safe</h3>
+        <p>Each tier checks the current status before sending, so the same client never receives the same email twice.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── EMAIL PREVIEWS ───── -->
+  <section class="section">
+    <span class="section-label">The Emails</span>
+    <h2 class="section-title">Here's what gets sent</h2>
+    <p class="section-subtitle">Three emails, three tones. Tone, color, and urgency shift as the invoice ages — but the format stays consistent so clients recognize the sender. Click a tab to preview each tier.</p>
+
+    <div class="email-tabs">
+      <div class="email-tab active" data-tab="1" onclick="showEmailTab(1)">
+        <span class="dot"></span> First Reminder
+      </div>
+      <div class="email-tab" data-tab="2" onclick="showEmailTab(2)">
+        <span class="dot"></span> Second Warning
+      </div>
+      <div class="email-tab" data-tab="3" onclick="showEmailTab(3)">
+        <span class="dot"></span> Escalation
+      </div>
+    </div>
+
+    <div class="email-preview-frame">
+      <!-- First Reminder -->
+      <div class="email-pane active" id="email-pane-1">
+        <div class="email-header">
+          <div class="email-meta-row"><strong>From:</strong> Kylla Gelaga &lt;you@yourbusiness.com&gt;</div>
+          <div class="email-meta-row"><strong>To:</strong> Lily Jean &lt;lily@example.com&gt;</div>
+          <div class="email-subject">Friendly Reminder: Invoice INV-003 Now Due</div>
+        </div>
+        <div class="email-body">
+          <div style="width:100%; max-width:100%; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.5; color: #222;">
+            <p>Hi Lily Jean,</p>
+            <p>I hope this message finds you well! Just a friendly reminder that Invoice INV-003 for $2000 was due on 2026-02-18 and is currently <strong style="color:#2980b9;">7 days past due</strong>. I know things can get busy, so I wanted to send a quick nudge in case it slipped past your inbox.</p>
+            <p><strong>Invoice Details:</strong></p>
+            <table style="border-collapse: collapse; width: 60%; margin: 10px 0;">
+              <tr>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">Invoice ID</td>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">INV-003</td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">Amount Due</td>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">$2000</td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">Original Due Date</td>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">2026-02-18</td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">Days Overdue</td>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center; color:#2980b9; font-weight:bold;">7</td>
+              </tr>
+            </table>
+            <p>If payment has already been sent, please disregard this message — and thank you! Otherwise, you can settle the balance whenever it's convenient using the link below:</p>
+            <p><a href="https://paymentlink.com" style="color:#1a73e8;">https://paymentlink.com</a></p>
+            <p>If you have any questions about the invoice or need anything from me, just let me know and I'll be happy to help. Thanks so much for your continued business!</p>
+            <p>Best regards,<br>Kylla Gelaga</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Warning -->
+      <div class="email-pane" id="email-pane-2">
+        <div class="email-header">
+          <div class="email-meta-row"><strong>From:</strong> Kylla Gelaga &lt;you@yourbusiness.com&gt;</div>
+          <div class="email-meta-row"><strong>To:</strong> Lily Jean &lt;lily@example.com&gt;</div>
+          <div class="email-subject">Quick Follow-Up: Invoice INV-003 — 21 Days Overdue</div>
+        </div>
+        <div class="email-body">
+          <div style="width:100%; max-width:100%; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.5; color: #222;">
+            <p>Hi Lily Jean,</p>
+            <p>I hope you're doing well. I wanted to circle back on Invoice INV-003 for $2000, which is now <strong style="color:#e67e22;">21 days past due</strong>. I sent a reminder a little while ago but haven't heard back yet, so I wanted to make sure it didn't slip through the cracks.</p>
+            <p>If there's anything on your end — a question about the invoice, a missing detail, or a timing issue — I'd be happy to sort it out together. I'd rather hear about it than leave it unresolved.</p>
+            <p><strong>Invoice Details:</strong></p>
+            <table style="border-collapse: collapse; width: 60%; margin: 10px 0;">
+              <tr>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">Invoice ID</td>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">INV-003</td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">Amount Due</td>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">$2000</td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">Original Due Date</td>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">2026-02-18</td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">Days Overdue</td>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center; color:#e67e22; font-weight:bold;">21</td>
+              </tr>
+            </table>
+            <p>If everything is in order on your side, you can settle the balance using the link below. I'm also open to working out a payment plan if that would help.</p>
+            <p><a href="https://paymentlink.com" style="color:#1a73e8;">https://paymentlink.com</a></p>
+            <p>Thanks for your time on this — I appreciate it, and I look forward to hearing from you soon.</p>
+            <p>Best regards,<br>Kylla Gelaga</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Escalation -->
+      <div class="email-pane" id="email-pane-3">
+        <div class="email-header">
+          <div class="email-meta-row"><strong>From:</strong> Kylla Gelaga &lt;you@yourbusiness.com&gt;</div>
+          <div class="email-meta-row"><strong>To:</strong> Lily Jean &lt;lily@example.com&gt;</div>
+          <div class="email-subject">Invoice INV-003 — 82 Days Overdue</div>
+        </div>
+        <div class="email-body">
+          <div style="width:100%; max-width:100%; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.5; color: #222;">
+            <p>Hi Lily Jean,</p>
+            <p>I'm following up on Invoice INV-003 for $2000, originally due 2026-02-18 — now <strong style="color:#d32f2f;">82 days past due</strong>. I haven't heard back on previous reminders, so I wanted to reach out directly before taking any further steps.</p>
+            <p><strong>Invoice Details:</strong></p>
+            <table style="border-collapse: collapse; width: 60%; margin: 10px 0;">
+              <tr>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">Invoice ID</td>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">INV-003</td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">Amount Due</td>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">$2000</td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">Original Due Date</td>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">2026-02-18</td>
+              </tr>
+              <tr>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center;">Days Overdue</td>
+                <td style="border: 1px solid #999; padding: 8px; text-align: center; color:#d32f2f; font-weight:bold;">82</td>
+              </tr>
+            </table>
+            <p>Could you either settle the balance or let me know what's going on within 5 business days? If there's an issue on your end, I'd rather hear about it and find a workable solution together.</p>
+            <p><a href="https://paymentlink.com" style="color:#1a73e8;">https://paymentlink.com</a></p>
+            <p>I value our working relationship and want to keep things on professional terms. Hoping we can resolve this soon.</p>
+            <p>Regards,<br>Kylla Gelaga</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── WHY ───── -->
+  <section class="section">
+    <span class="section-label">Why it matters</span>
+    <h2 class="section-title">The cost of waiting is the work itself</h2>
+    <p class="section-subtitle">Late invoices steal time, energy, and cash flow. Most freelancers and small teams either forget to follow up, feel awkward doing it, or burn an hour each week on it. This workflow solves all three.</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-icon">💸</div>
+        <h3>Get paid faster</h3>
+        <p>Consistent, on-time reminders measurably shorten payment cycles. Clients pay invoices they're nudged about.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧠</div>
+        <h3>Save mental bandwidth</h3>
+        <p>No more sticky notes, calendar pings, or guilty Sundays. The system tracks what you'd otherwise have to remember.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🤝</div>
+        <h3>Stay professional</h3>
+        <p>Email tone scales with severity. Clients get warm reminders before firm ones, never an awkward conversation.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🚨</div>
+        <h3>Never miss a 30+ day debt</h3>
+        <p>You get a personal HTML alert email when an invoice reaches escalation, that's when a phone call matters.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── HOW (workflow) ───── -->
+  <section class="section">
+    <span class="section-label">How it works</span>
+    <h2 class="section-title">The daily flow</h2>
+    <p class="section-subtitle">Each morning the workflow walks through the same five-step sequence. No clicks required.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-number">1</div>
+        <div class="flow-content">
+          <strong>Daily Trigger</strong>
+          <span>Fires every day at 9:00 AM Eastern Time</span>
+        </div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">
+        <div class="flow-number">2</div>
+        <div class="flow-content">
+          <strong>Read Tracker</strong>
+          <span>Pulls all rows from the Invoices tab in Google Sheets</span>
+        </div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">
+        <div class="flow-number">3</div>
+        <div class="flow-content">
+          <strong>Filter &amp; Calculate</strong>
+          <span>Skips paid invoices, calculates days overdue for the rest</span>
+        </div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">
+        <div class="flow-number">4</div>
+        <div class="flow-content">
+          <strong>Route by Tier</strong>
+          <span>Sends the right email based on how overdue the invoice is</span>
+        </div>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">
+        <div class="flow-number">5</div>
+        <div class="flow-content">
+          <strong>Update Sheet</strong>
+          <span>Writes status, follow-up date, and notes back automatically</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── TIERS (quick reference) ───── -->
+  <section class="section">
+    <span class="section-label">Escalation tiers</span>
+    <h2 class="section-title">Day ranges &amp; tracker status</h2>
+    <p class="section-subtitle">A quick-reference table of when each tier fires and what status it writes back to the Google Sheet.</p>
+
+    <div class="tiers">
+      <div class="tier tier-1">
+        <div class="tier-days">7 – 13 days overdue</div>
+        <div class="tier-name">First Reminder</div>
+        <div class="tier-tone">Friendly, polite</div>
+        <p class="tier-desc">A warm nudge with the amount, due date, and payment link. Assumes the client simply forgot.</p>
+        <div class="tier-status">Followed Up - Level 1</div>
+      </div>
+      <div class="tier tier-2">
+        <div class="tier-days">14 – 29 days overdue</div>
+        <div class="tier-name">Second Reminder</div>
+        <div class="tier-tone">Firm, asks for update</div>
+        <p class="tier-desc">More direct. Acknowledges the prior email, asks about any issues, offers a payment plan.</p>
+        <div class="tier-status">Followed Up - Level 2</div>
+      </div>
+      <div class="tier tier-3">
+        <div class="tier-days">30+ days overdue</div>
+        <div class="tier-name">Escalation + Alert</div>
+        <div class="tier-tone">Urgent, action needed</div>
+        <p class="tier-desc">Serious tone with a 5-business-day deadline. You also get an internal HTML alert email.</p>
+        <div class="tier-status">Escalation Required</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── Stats Strip ───── -->
+  <section class="section">
+    <div class="stat-strip">
+      <div class="stat">
+        <div class="stat-value">9 AM</div>
+        <div class="stat-label">Daily Run Time</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">ET</div>
+        <div class="stat-label">Timezone</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">3</div>
+        <div class="stat-label">Email Tiers</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">9</div>
+        <div class="stat-label">Tracker Columns</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── Setup ───── -->
+  <section class="section">
+    <span class="section-label">Setup</span>
+    <h2 class="section-title">Get it running in minutes</h2>
+    <p class="section-subtitle">Seven simple steps from import to first send.</p>
+
+    <ol class="setup-list">
+      <li class="setup-item">
+        <div>
+          <h4>Prepare your Google Sheet</h4>
+          <p>Create a sheet named <code>Clients Invoicing Tracker</code> with a tab called <code>Invoices</code>. Add the nine required columns including <code>Invoice ID</code>, <code>Client Email</code>, <code>Due Date</code>, and <code>Status</code>.</p>
+        </div>
+      </li>
+      <li class="setup-item">
+        <div>
+          <h4>Format the Due Date column</h4>
+          <p>Set the <code>Due Date</code> column to <code>YYYY-MM-DD</code> so the workflow can correctly calculate days overdue.</p>
+        </div>
+      </li>
+      <li class="setup-item">
+        <div>
+          <h4>Import the workflow into n8n</h4>
+          <p>In n8n, go to <strong>Workflows → Import from file</strong> and select <code>Invoice Follow-Up System (1).json</code>.</p>
+        </div>
+      </li>
+      <li class="setup-item">
+        <div>
+          <h4>Connect your credentials</h4>
+          <p>Link your <strong>Google Sheets OAuth2</strong> and <strong>Gmail OAuth2</strong> accounts in n8n's credentials settings.</p>
+        </div>
+      </li>
+      <li class="setup-item">
+        <div>
+          <h4>Update the Alert Freelancer email</h4>
+          <p>In the <strong>Alert Freelancer (30+ Days)</strong> node, replace <code>YOUR_EMAIL@example.com</code> with your real address.</p>
+        </div>
+      </li>
+      <li class="setup-item">
+        <div>
+          <h4>Replace [Your Name] in the templates</h4>
+          <p>All three email templates close with <code>[Your Name]</code>. Swap it for your real name or business name.</p>
+        </div>
+      </li>
+      <li class="setup-item">
+        <div>
+          <h4>Activate the workflow</h4>
+          <p>Flip the toggle in n8n. The next morning at 9 AM ET, your first batch of reminders goes out.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ───── Roadmap ───── -->
+  <section class="section">
+    <span class="section-label">Roadmap</span>
+    <h2 class="section-title">What's next</h2>
+    <p class="section-subtitle">Planned improvements grouped into three buckets: fixes, new branches, and reporting.</p>
+
+    <div class="roadmap-group">
+      <div class="roadmap-heading">Fixes to the existing flow</div>
+      <div class="roadmap-grid">
+        <div class="roadmap-card">
+          <strong>Smarter Duplicate Prevention</strong>
+          <span>Check Last Follow-Up Date, skip if a reminder was sent within the last 3 days.</span>
+        </div>
+        <div class="roadmap-card">
+          <strong>Dynamic Payment Links</strong>
+          <span>Auto-generate unique trackable links per invoice via Stripe or PayPal.</span>
+        </div>
+        <div class="roadmap-card">
+          <strong>Timezone Awareness</strong>
+          <span>Calculate overdue days against the client's local midnight, not yours.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-group">
+      <div class="roadmap-heading">New nodes &amp; branches</div>
+      <div class="roadmap-grid">
+        <div class="roadmap-card">
+          <strong>WhatsApp Reminders</strong>
+          <span>For 14+ day overdue invoices, significantly higher response rates than email.</span>
+        </div>
+        <div class="roadmap-card">
+          <strong>Slack / Telegram Alerts</strong>
+          <span>Replace the freelancer email alert with a faster, more visible bot ping.</span>
+        </div>
+        <div class="roadmap-card">
+          <strong>Auto-Log to CRM</strong>
+          <span>Create a task or deal in HubSpot or Notion when an invoice escalates.</span>
+        </div>
+        <div class="roadmap-card">
+          <strong>Stripe Payment Webhook</strong>
+          <span>Auto-mark invoices as Paid the moment payment lands, no manual updates.</span>
+        </div>
+        <div class="roadmap-card">
+          <strong>Reply Detection</strong>
+          <span>Watch for client replies; pause reminders and flag as Client Responded.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-group">
+      <div class="roadmap-heading">Reporting additions</div>
+      <div class="roadmap-grid">
+        <div class="roadmap-card">
+          <strong>Weekly Summary Email</strong>
+          <span>Every Monday: total outstanding, count, and oldest invoice age, all in one digest.</span>
+        </div>
+        <div class="roadmap-card">
+          <strong>Dashboard Tab</strong>
+          <span>Auto-write summary stats to a Dashboard tab, ready for Looker Studio.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Automated Invoice Follow-Up System. Built on n8n, powered by Google Sheets &amp; Gmail.
+  </footer>
+
+</div>
+
+<script>
+  function showEmailTab(n) {
+    // Toggle tabs
+    document.querySelectorAll('.email-tab').forEach(t => {
+      t.classList.toggle('active', parseInt(t.dataset.tab) === n);
+    });
+    // Toggle panes
+    document.querySelectorAll('.email-pane').forEach(p => p.classList.remove('active'));
+    document.getElementById('email-pane-' + n).classList.add('active');
+  }
+</script>
+
+</body>
+</html>

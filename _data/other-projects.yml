@@ -29,6 +29,18 @@
     - thing: Data Visualization
     - thing: ETL Pipeline
 
+- name: "Automated Invoice Follow-Up System"
+  url: /projects/invoice-tracker-overview.html
+  description: An n8n workflow that monitors a Google Sheets tracker and sends escalating reminder emails to clients based on how many days their invoice is overdue. Three-tier email escalation runs every morning at 9 AM ET — friendly nudge, firm follow-up, urgent escalation — and writes status updates back to the sheet automatically.
+  links:
+    - name: Project Overview
+      url: /projects/invoice-tracker-overview.html
+  used:
+    - thing: n8n
+    - thing: Google Sheets
+    - thing: Gmail API
+    - thing: Workflow Automation
+
 - name: Surf Videos
   url: https://github.com/bchiang7/Surf-Videos
   code: https://github.com/bchiang7/Surf-Videos
