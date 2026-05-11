@@ -210,7 +210,7 @@ export default function Home() {
                     title: 'Automated Invoice Follow Up System',
                     desc: 'Built an n8n workflow that monitors overdue invoices via Google Sheets and sends escalating reminder emails (friendly → firm → urgent) based on days overdue. Includes auto status updates and freelancer alerts at 30 or more days.',
                     tags: ['n8n', 'Google Sheets', 'Gmail', 'Automation'],
-                    links: { youtube: '#', presentation: '#', overview: '#' },
+                    links: { youtube: '#', presentation: '#', overview: '/projects/invoice-tracker-overview.html' },
                   },
                   {
                     title: 'AI Portfolio Chatbot',
